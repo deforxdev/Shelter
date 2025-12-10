@@ -1,9 +1,9 @@
 {
-  "latestVersion": "1.0.0",
+  "latestVersion": "1.01",
   "downloadUrl": "https://github.com/deforxdev/Shelter/releases/download/v1.0.0/game.zip",
   "changelog": [
     "• Перший реліз гри SHELTER",
-    "• Базова механіка виживання"
+    "• test"
   ],
   "size": "500 MB",
   "releaseDate": "2024-12-11"
