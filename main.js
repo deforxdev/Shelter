@@ -75,7 +75,7 @@ async function createWindow() {
   if (process.env.NODE_ENV === 'development') {
     mainWindow.loadURL('http://localhost:3000');
   } else {
-    mainWindow.loadFile('build/index.html');
+    mainWindow.loadFile('index.html');
   }
   
   // Open DevTools with F12, refresh with F5 or Ctrl+R
