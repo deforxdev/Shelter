@@ -22,10 +22,7 @@
             </div>
         </header>
         
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-bar"></div>
-        </footer>
+    
         
         <!-- Main Content -->
         <main class="main-content">
@@ -68,34 +65,42 @@
                         <div class="stat-row">
                             <span class="stat-label">СТАТЬ:</span>
                             <span class="stat-value" id="stat-gender">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="gender" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">ВІК:</span>
                             <span class="stat-value" id="stat-age">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="age" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">ПРОФЕСІЯ:</span>
                             <span class="stat-value" id="stat-profession">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="profession" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">ХАРАКТЕР:</span>
                             <span class="stat-value" id="stat-character">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="character" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">ЗДОРОВ'Я:</span>
                             <span class="stat-value" id="stat-health">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="health" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">ФОБІЯ:</span>
                             <span class="stat-value" id="stat-phobia">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="phobia" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">НАВИК:</span>
                             <span class="stat-value" id="stat-skill">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="skill" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">ХОБі:</span>
                             <span class="stat-value" id="stat-hobby">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="hobby" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                     </div>
                     <!-- Page 2 -->
@@ -103,18 +108,22 @@
                         <div class="stat-row">
                             <span class="stat-label">ФАКТ 1:</span>
                             <span class="stat-value" id="stat-fact1">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="fact1" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">ФАКТ 2:</span>
                             <span class="stat-value" id="stat-fact2">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="fact2" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">БАГАЖ:</span>
                             <span class="stat-value" id="stat-baggage">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="baggage" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                         <div class="stat-row">
                             <span class="stat-label">КАРТА ДІЇ:</span>
                             <span class="stat-value" id="stat-action">-</span>
+                            <button class="reveal-indicator-btn" data-indicator="action" title="Відкрити показник" style="display:none;">👁</button>
                         </div>
                     </div>
                     <div class="stats-pagination">
@@ -302,6 +311,26 @@
 
         // Initialize game
         async function init() {
+                    // Показувати кнопку "Відкрити показник" при наведенні на рядок
+                    document.querySelectorAll('.stat-row').forEach(row => {
+                        row.addEventListener('mouseenter', () => {
+                            const btn = row.querySelector('.reveal-indicator-btn');
+                            if (btn) btn.style.display = 'inline-block';
+                        });
+                        row.addEventListener('mouseleave', () => {
+                            const btn = row.querySelector('.reveal-indicator-btn');
+                            if (btn) btn.style.display = 'none';
+                        });
+                    });
+                    // Дія при натисканні на кнопку показника
+                    document.querySelectorAll('.reveal-indicator-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const indicator = btn.getAttribute('data-indicator');
+                            const value = document.getElementById('stat-' + indicator)?.textContent || '';
+                            alert('Показник: ' + value);
+                            e.stopPropagation();
+                        });
+                    });
             currentUser = await window.supabaseAuth.getCurrentUser();
             if (!currentUser) {
                 window.location.href = 'index.html';
@@ -496,21 +525,32 @@
                 grid.appendChild(slot);
             });
             
-            // Update pagination
-            document.getElementById('page-info').textContent = `${currentPage + 1} / ${Math.max(1, totalPages)}`;
-            
-            // Add vote button listeners
-            document.querySelectorAll('.vote-btn').forEach(btn => {
-                btn.addEventListener('click', () => castVote(btn.dataset.playerId));
+            // Stats pagination
+            document.getElementById('stats-prev').addEventListener('click', () => {
+                if (statsPage > 0) {
+                    statsPage--;
+                    toggleStatsPage(statsPage);
+                }
             });
-            
-            // Attach local stream to current user's video
+            document.getElementById('stats-next').addEventListener('click', () => {
+                if (statsPage < 1) {
+                    statsPage++;
+                    toggleStatsPage(statsPage);
+                }
+            });
             setTimeout(() => {
-                attachLocalStream();
-                updateSpeakerVideo();
-                // Apply stored volumes to other players
                 applyStoredVolumes();
             }, 100);
+                // Додаємо обробник для кнопки "Відкрити показник"
+                const indicatorBtn = document.getElementById('show-indicator-btn');
+                if (indicatorBtn) {
+                    indicatorBtn.addEventListener('click', () => {
+                        const statsPanel = document.querySelector('.stats-panel');
+                        if (statsPanel) {
+                            statsPanel.style.display = (statsPanel.style.display === 'none') ? 'block' : 'none';
+                        }
+                    });
+                }
         }
         
         // Apply stored volumes to all player videos

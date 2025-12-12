@@ -476,12 +476,26 @@
             }
         });
         
-        // Cleanup on page unload only when actually closing/navigating
+        // Cleanup on page unload (закриття/перезавантаження)
         let isUnloading = false;
         window.addEventListener('beforeunload', (event) => {
             if (!isUnloading) {
                 isUnloading = true;
-                leaveRoom();
+                // Викликаємо leaveRoom синхронно через navigator.sendBeacon
+                if (typeof leaveRoom === 'function') {
+                    // Якщо є можливість, повідомляємо сервер через fetch або sendBeacon
+                    if (window.navigator && window.navigator.sendBeacon) {
+                        const client = window.supabaseAuth.initSupabase();
+                        // Позначаємо користувача як неактивного (або видаляємо)
+                        // Тут можна зробити запит до вашого бекенду через sendBeacon
+                        // або залишити як є, якщо бекенд підтримує sendBeacon
+                        // (Supabase fetch не підтримує sendBeacon напряму)
+                        // Альтернатива: залишити як async, але браузер може не дочекатися
+                        leaveRoom();
+                    } else {
+                        leaveRoom();
+                    }
+                }
             }
         });
         

@@ -149,8 +149,6 @@ html, body {
     gap: 5px;
 }
 
-/* Speaking highlight removed */
-
 .player-slot.eliminated {
     opacity: 0.3;
     pointer-events: none;
@@ -834,6 +832,10 @@ html, body {
     text-align: right;
 }
 
+/* ========================================================= */
+/* PREVIOUS BREAKPOINTS (Saved as requested)         */
+/* ========================================================= */
+
 /* PC and Laptop Optimization */
 @media (min-width: 1600px) {
     .players-panel {
@@ -1073,5 +1075,83 @@ html, body {
 
     .main-content {
         padding: 0 10px;
+    }
+}
+/* ========================================================= */
+/* STRICT FIX FOR YOUR LAPTOP (Low Height)                   */
+/* ========================================================= */
+@media screen and (max-height: 850px) {
+    /* ... ваші попередні налаштування хедера ... */
+    .header { height: 45px; }
+    .header-bar { height: 65px; top: -25px; }
+
+    /* ... кнопки контролю ... */
+    .bottom-controls {
+        bottom: 10px;
+        gap: 15px;
+        z-index: 50;
+    }
+    
+    .control-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* ... центр ... */
+    .center-panel {
+        top: 5px; 
+    }
+
+    .bunker-slots, .round-info {
+        font-size: 20px;
+        line-height: 1.2;
+        margin-bottom: 2px;
+    }
+
+    .speaker-frame {
+        width: 180px;
+        height: auto;
+        aspect-ratio: 286/428;
+    }
+
+    .end-turn-btn {
+        margin-top: 5px;
+        padding: 5px 20px;
+        font-size: 18px;
+        position: relative;
+        z-index: 200; 
+    }
+
+    /* 👇 ДОДАЙТЕ ЦЕЙ БЛОК ДЛЯ ЗМІНИ ШИРИНИ ПАПЕРУ 👇 */
+    .stats-panel {
+        /* Змінюйте це число, щоб зробити вужчим або ширшим */
+        width: 420px; 
+        
+        /* Можна посунути ближче до краю, якщо хочете (зазвичай 15-20px) */
+        right: 20px; 
+    }
+    /* 👆 КІНЕЦЬ НОВОГО БЛОКУ 👆 */
+
+
+    /* Права панель - внутрішні відступи */
+    .stats-paper {
+        padding-top: 65px;
+        padding-bottom: 20px;
+        /* Якщо папір все одно занадто широкий всередині, можна додати відступи зліва/справа */
+       
+    }
+
+    .stat-row {
+        min-height: 28px;
+        padding: 2px 0;
+    }
+    
+    .stat-label, .stat-value {
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    .stats-pagination {
+        bottom: 12%;
     }
 }
