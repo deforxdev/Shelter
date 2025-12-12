@@ -1,9 +1,10 @@
 {
-  "latestVersion": "1.0.1",
-  "downloadUrl": "https://github.com/deforxdev/Shelter/releases/download/v1.0.1/Game.zip",
+  "latestVersion": "1.0.2",
+  "downloadUrl": "https://github.com/deforxdev/Shelter/releases/download/v1.0.2/Game.zip",
   "changelog": [
-    "• оптимізація під монітори різні",
+    "• Фікс лаунчера",
+    "• Фікс камери"
   ],
-  "size": "500 MB",
-  "releaseDate": "2025-11-12"
+  "size": "346 MB",
+  "releaseDate": "2025-12-12"
 }
