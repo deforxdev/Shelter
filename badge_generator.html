@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Badge Generator - Profile Card Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #333;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        canvas {
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            background: #4a7c59;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #5a9c69;
+        }
+        .preview {
+            background: linear-gradient(135deg, #1a365d 0%, #2d4a6f 50%, #1a365d 100%);
+            padding: 40px;
+            border-radius: 10px;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+        .info {
+            color: #aaa;
+            font-size: 14px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Profile Card Badge Generator</h1>
+    
+    <h2>Нижня частина badge (як на фото)</h2>
+    <p class="info">201 x 51 px - частина з іменем та іконками</p>
+    <div class="preview">
+        <canvas id="badgeBottomCanvas" width="201" height="51"></canvas>
+    </div>
+    <button onclick="downloadBottomPNG()">Завантажити badge_bottom.png</button>
+
+    <script>
+        // Wait for font to load
+        document.fonts.ready.then(() => {
+            drawBadgeBottom();
+        });
+
+        function drawBadgeBottom() {
+            const canvas = document.getElementById('badgeBottomCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Create vintage paper gradient background (matching the photo)
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#c4b08a');
+            gradient.addColorStop(0.3, '#d0c09a');
+            gradient.addColorStop(0.7, '#c8b890');
+            gradient.addColorStop(1, '#b8a878');
+
+            // Draw rounded rectangle background (only bottom corners rounded)
+            const radius = 12;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width, 0);
+            ctx.lineTo(canvas.width, canvas.height - radius);
+            ctx.quadraticCurveTo(canvas.width, canvas.height, canvas.width - radius, canvas.height);
+            ctx.lineTo(radius, canvas.height);
+            ctx.quadraticCurveTo(0, canvas.height, 0, canvas.height - radius);
+            ctx.lineTo(0, 0);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            // Add subtle noise/texture effect
+            ctx.globalAlpha = 0.03;
+            for (let i = 0; i < 500; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                ctx.fillStyle = Math.random() > 0.5 ? '#000' : '#fff';
+                ctx.fillRect(x, y, 1, 1);
+            }
+            ctx.globalAlpha = 1;
+
+            // Draw log-out icon (left side) - position: left: 28px, top: 256px (relative to bottom)
+            const iconColor = '#3D2E14';
+            ctx.strokeStyle = iconColor;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            // Log-out icon at x=28, centered vertically
+            const logoutX = 28;
+            const logoutY = 25;
+            
+            // Bracket part [
+            ctx.beginPath();
+            ctx.moveTo(logoutX + 9, logoutY - 9);
+            ctx.lineTo(logoutX, logoutY - 9);
+            ctx.lineTo(logoutX, logoutY + 9);
+            ctx.lineTo(logoutX + 9, logoutY + 9);
+            ctx.stroke();
+            
+            // Arrow ->
+            ctx.beginPath();
+            ctx.moveTo(logoutX + 9, logoutY);
+            ctx.lineTo(logoutX + 21, logoutY);
+            ctx.stroke();
+            
+            // Arrow head
+            ctx.beginPath();
+            ctx.moveTo(logoutX + 16, logoutY - 5);
+            ctx.lineTo(logoutX + 21, logoutY);
+            ctx.lineTo(logoutX + 16, logoutY + 5);
+            ctx.stroke();
+
+            // Draw player name - centered, using Kelly Slab font
+            ctx.fillStyle = '#000000';
+            ctx.font = '16px "Kelly Slab", cursive';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.letterSpacing = '0.04em';
+            ctx.fillText('Djullaii', canvas.width / 2, canvas.height / 2);
+
+            // Draw cog/settings icon (right side) - position: left: 149px
+            const cogX = 161;  // 149 + 12 (center of 24px icon)
+            const cogY = 25;
+            
+            ctx.strokeStyle = iconColor;
+            ctx.lineWidth = 2;
+
+            // Outer gear circle
+            ctx.beginPath();
+            ctx.arc(cogX, cogY, 8, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Inner circle (hole)
+            ctx.beginPath();
+            ctx.arc(cogX, cogY, 3, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Gear teeth (8 teeth)
+            const teeth = 8;
+            for (let i = 0; i < teeth; i++) {
+                const angle = (i / teeth) * Math.PI * 2 - Math.PI / 2;
+                const x1 = cogX + Math.cos(angle) * 8;
+                const y1 = cogY + Math.sin(angle) * 8;
+                const x2 = cogX + Math.cos(angle) * 12;
+                const y2 = cogY + Math.sin(angle) * 12;
+                
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+        }
+
+        function downloadBottomPNG() {
+            const canvas = document.getElementById('badgeBottomCanvas');
+            const link = document.createElement('a');
+            link.download = 'badge.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Initial draw
+        drawBadgeBottom();
+    </script>
+</body>
+</html>

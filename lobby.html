@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby - Shelter</title>
+    <link rel="stylesheet" href="lobby.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kenia&family=Kelly+Slab&family=Impact&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="lobby-page">
+        <!-- Background -->
+        <div class="background"></div>
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="header-bar"></div>
+            <div class="header-gradient"></div>
+            
+            <!-- Logo -->
+            <div class="header-logo">
+                <img src="Assets/Component 1.png" alt="Shelter" class="header-icon">
+                <span class="header-title">Shelter</span>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="nav-menu">
+                <div class="nav-border"></div>
+                <a href="" class="nav-link"></a>
+                <div class="nav-border"></div>
+                <a href="" class="nav-link"></a>
+                <div class="nav-border"></div>
+                <a href="" class="nav-link active"></a>
+                <div class="nav-border"></div>
+            </nav>
+        </header>
+        
+        <!-- Bottom Header -->
+        <footer class="footer">
+            <div class="footer-bar"></div>
+        </footer>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Player Grid -->
+            <div class="players-grid">
+                <!-- Player slots will be generated dynamically -->
+            </div>
+            
+            <!-- Game Info Panel -->
+            <div class="game-info-panel">
+                <div class="info-paper">
+                    <div class="info-section">
+                        <h3 class="info-label">Статус гри:</h3>
+                        <p class="info-value" id="game-status">Очікування гравців... <span id="player-count">0</span>/<span id="max-players">6</span></p>
+                    </div>
+                    <div class="info-section">
+                        <h3 class="info-label">Правила:</h3>
+                        <p class="info-value" id="game-rules">Стандартні</p>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-btn ready-btn" id="ready-btn">Я ГОТОВИЙ</button>
+                        <button class="action-btn start-btn" id="start-btn" style="display: none;">ПОЧАТИ ГРУ</button>
+                        <button class="action-btn leave-btn" id="leave-btn">ВИЙТИ</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Loading Screen -->
+        <div class="loading-screen" id="loading-screen">
+            <div class="loading-background"></div>
+            <div class="loading-door">
+                <img src="Assets/doorloading.png" alt="Loading">
+                <div class="loading-logo">
+                    <img src="Assets/Component 1 (1).svg" alt="Logo">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Controls -->
+        <div class="bottom-controls">
+            <button class="control-btn mic-btn" id="mic-btn">
+                <img src="Assets/ChatGPT Image 6 дек. 2025 г., 21_21_56 1.png" alt="Microphone">
+            </button>
+            <button class="control-btn camera-btn" id="camera-btn">
+                <img src="Assets/ChatGPT Image 6 дек. 2025 г., 21_23_41 1.png" alt="Camera">
+            </button>
+            <button class="control-btn settings-btn" id="settings-btn">
+                <img src="Assets/ChatGPT Image 7 дек. 2025 г., 12_49_16 (1) 2.png" alt="Settings">
+            </button>
+        </div>
+        
+        <!-- Settings Modal -->
+        <div class="settings-modal" id="settings-modal" style="display: none;">
+            <div class="settings-content">
+                <button class="settings-close" id="settings-close">×</button>
+                <h2>Налаштування</h2>
+                <div class="settings-option">
+                    <label>
+                        <input type="checkbox" id="hear-self-toggle">
+                        Чути себе
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Corner Decorations -->
+        <div class="corner-decor left"></div>
+        <div class="corner-decor right"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="mediaManager.js"></script>
+    <script src="webrtc.js"></script>
+    <script>
+        // Global settings
+        window.hearSelfEnabled = false;
+        
+        // Get room ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomId = urlParams.get('id');
+        
+        let currentRoom = null;
+        let currentUser = null;
+        let isReady = false;
+        let webrtcManager = null;
+        let isCameraOn = false;
+        let isMicOn = false;
+        
+        // Show loading screen on page load
+        function showLoading() {
+            document.getElementById('loading-screen').classList.add('active');
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading-screen').classList.remove('active');
+        }
+        
+        // Show loading immediately when page loads
+        showLoading();
+        
+        // Initialize
+        async function init() {
+            currentUser = await window.supabaseAuth.getCurrentUser();
+            if (!currentUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            if (!roomId) {
+                window.location.href = 'rooms.html';
+                return;
+            }
+            
+            await loadRoom();
+            setupRealtimeUpdates();
+
+            // Set user session for cleanup
+            if (typeof window.require !== 'undefined') {
+                const { ipcRenderer } = window.require('electron');
+                ipcRenderer.send('set-user-session', {
+                    userId: currentUser.id,
+                    roomId: roomId
+                });
+            }
+
+            // Initialize WebRTC
+            await initWebRTC();
+
+            // Hide loading after everything is loaded
+            setTimeout(() => {
+                hideLoading();
+            }, 1500);
+        }
+        
+        // Initialize WebRTC
+        async function initWebRTC() {
+            const client = window.supabaseAuth.initSupabase();
+            webrtcManager = new WebRTCManager();
+            await webrtcManager.init(client, roomId, currentUser.id);
+            
+            // Override remote stream callback
+            webrtcManager.onRemoteStream = (peerId, stream) => {
+                displayRemoteVideo(peerId, stream);
+            };
+        }
+        
+        // Display remote video in player slot
+        function displayRemoteVideo(peerId, stream) {
+            const videoElements = document.querySelectorAll(`[data-player-id="${peerId}"] video`);
+            videoElements.forEach(video => {
+                video.srcObject = stream;
+            });
+        }
+        
+        // Load room data
+        async function loadRoom() {
+            const client = window.supabaseAuth.initSupabase();
+            
+            const { data: room, error } = await client
+                .from('rooms')
+                .select('*')
+                .eq('id', roomId)
+                .single();
+            
+            if (error || !room) {
+                alert('Кімната не знайдена');
+                window.location.href = 'rooms.html';
+                return;
+            }
+            
+            currentRoom = room;
+            updateUI();
+        }
+        
+        // Update UI with room data
+        function updateUI() {
+            if (!currentRoom) return;
+            
+            document.getElementById('max-players').textContent = currentRoom.max_players;
+            document.getElementById('player-count').textContent = currentRoom.players ? currentRoom.players.length : 0;
+            
+            // Generate player slots - only show frames for joined players
+            const grid = document.querySelector('.players-grid');
+            grid.innerHTML = '';
+            
+            const players = currentRoom.players || [];
+            
+            // Only show slots for actual players
+            players.forEach((player, i) => {
+                const slot = document.createElement('div');
+                slot.className = 'player-slot occupied';
+                slot.setAttribute('data-player-id', player.id);
+                
+                const readyClass = player.ready ? 'ready' : '';
+                const isCurrentUser = player.id === currentUser.id;
+                
+                slot.innerHTML = `
+                    <div class="player-frame ${readyClass}">
+                        <div class="player-avatar">
+                            <video autoplay playsinline ${isCurrentUser ? 'muted' : ''} id="video-${player.id}"></video>
+                        </div>
+                    </div>
+                    <span class="player-name">${player.name || 'Гравець'}</span>
+                `;
+                
+                grid.appendChild(slot);
+                
+                // Set local video stream
+                if (isCurrentUser && webrtcManager && webrtcManager.localStream) {
+                    const video = document.getElementById(`video-${player.id}`);
+                    if (video) {
+                        video.srcObject = webrtcManager.localStream;
+                    }
+                }
+            });
+            
+            // Check if current user is host and show start button
+            const isHost = currentRoom.host_id === currentUser.id;
+            const startBtn = document.getElementById('start-btn');
+            
+            if (isHost) {
+                startBtn.style.display = 'flex';
+                
+                // Check if all players are ready (can start alone)
+                const allReady = players.length >= 1 && players.every(p => p.ready);
+                startBtn.classList.toggle('enabled', allReady);
+            } else {
+                startBtn.style.display = 'none';
+            }
+        }
+        
+        // Setup realtime updates
+        function setupRealtimeUpdates() {
+            const client = window.supabaseAuth.initSupabase();
+            
+            client
+                .channel('room-' + roomId)
+                .on('postgres_changes', { 
+                    event: '*', 
+                    schema: 'public', 
+                    table: 'rooms',
+                    filter: `id=eq.${roomId}`
+                }, (payload) => {
+                    currentRoom = payload.new;
+                    updateUI();
+                    
+                    // Redirect to game page when game starts
+                    if (payload.new.status === 'playing') {
+                        showLoading();
+                        setTimeout(() => {
+                            window.location.href = 'game.html?id=' + roomId;
+                        }, 2000);
+                    }
+                })
+                .subscribe();
+        }
+        
+        // Ready button
+        document.getElementById('ready-btn').addEventListener('click', async () => {
+            isReady = !isReady;
+            const btn = document.getElementById('ready-btn');
+            btn.textContent = isReady ? 'НЕ ГОТОВИЙ' : 'Я ГОТОВИЙ';
+            btn.classList.toggle('active', isReady);
+            
+            // Update player ready status in database
+            await updatePlayerStatus(isReady);
+        });
+        
+        // Leave button
+        document.getElementById('leave-btn').addEventListener('click', async () => {
+            await leaveRoom();
+            window.location.href = 'rooms.html';
+        });
+        
+        // Start game button (host only)
+        document.getElementById('start-btn').addEventListener('click', async () => {
+            const startBtn = document.getElementById('start-btn');
+            if (!startBtn.classList.contains('enabled')) return;
+            
+            // Show loading screen
+            showLoading();
+            
+            // Update room status to 'playing'
+            const client = window.supabaseAuth.initSupabase();
+            await client
+                .from('rooms')
+                .update({ status: 'playing' })
+                .eq('id', roomId);
+            
+            // Redirect to game page
+            setTimeout(() => {
+                window.location.href = 'game.html?id=' + roomId;
+            }, 2000);
+        });
+        
+        // Update player status
+        async function updatePlayerStatus(ready) {
+            const client = window.supabaseAuth.initSupabase();
+            
+            // Get current players
+            const { data: room } = await client
+                .from('rooms')
+                .select('players')
+                .eq('id', roomId)
+                .single();
+            
+            if (room && room.players) {
+                const players = room.players.map(p => {
+                    if (p.id === currentUser.id) {
+                        return { ...p, ready: ready };
+                    }
+                    return p;
+                });
+                
+                await client
+                    .from('rooms')
+                    .update({ players: players })
+                    .eq('id', roomId);
+            }
+        }
+        
+        // Leave room
+        async function leaveRoom() {
+            const client = window.supabaseAuth.initSupabase();
+
+            const { data: room } = await client
+                .from('rooms')
+                .select('players, host_id')
+                .eq('id', roomId)
+                .single();
+
+            if (room && room.players) {
+                const players = room.players.filter(p => p.id !== currentUser.id);
+
+                if (players.length === 0) {
+                    // Delete room if empty
+                    await client.from('rooms').delete().eq('id', roomId);
+                } else {
+                    // Update players
+                    const updates = { players: players };
+
+                    // Transfer host if leaving player was host
+                    if (room.host_id === currentUser.id) {
+                        updates.host_id = players[0].id;
+                    }
+
+                    await client.from('rooms').update(updates).eq('id', roomId);
+                }
+            }
+
+            // Clear user session
+            if (typeof window.require !== 'undefined') {
+                const { ipcRenderer } = window.require('electron');
+                ipcRenderer.send('clear-user-session');
+            }
+
+            // Close WebRTC connections
+            if (webrtcManager) {
+                webrtcManager.closeAllConnections();
+            }
+        }
+        
+        // Camera button handler
+        document.getElementById('camera-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('camera-btn');
+            
+            if (!webrtcManager.localStream) {
+                // Start camera for the first time
+                try {
+                    btn.style.opacity = '0.5';
+                    await webrtcManager.startCamera();
+                    isCameraOn = true;
+                    isMicOn = false; // Mic is muted by default
+                    btn.classList.add('active');
+                    btn.style.opacity = '1';
+                    
+                    // Update local video
+                    updateUI();
+                    
+                    // Connect to other players
+                    if (currentRoom && currentRoom.players) {
+                        await webrtcManager.connectToPeers(currentRoom.players);
+                    }
+                } catch (error) {
+                    btn.style.opacity = '1';
+                    console.error('Camera error:', error);
+                    if (error.name === 'NotAllowedError') {
+                        alert('Доступ до камери заборонено. Дозвольте доступ в налаштуваннях.');
+                    } else if (error.name === 'NotFoundError') {
+                        alert('Камера не знайдена.');
+                    } else if (error.name === 'AbortError' || error.name === 'NotReadableError') {
+                        alert('Камера зайнята іншою програмою. Закрийте інші програми що використовують камеру.');
+                    } else {
+                        alert('Не вдалося отримати доступ до камери: ' + error.message);
+                    }
+                }
+            } else {
+                // Toggle camera
+                isCameraOn = webrtcManager.toggleCamera(!isCameraOn);
+                btn.classList.toggle('active', isCameraOn);
+            }
+        });
+        
+        // Microphone button handler
+        document.getElementById('mic-btn').addEventListener('click', () => {
+            const btn = document.getElementById('mic-btn');
+            
+            if (webrtcManager && webrtcManager.localStream) {
+                isMicOn = webrtcManager.toggleMic(!isMicOn);
+                btn.classList.toggle('active', isMicOn);
+            } else {
+                alert('Спочатку увімкніть камеру');
+            }
+        });
+        
+        // Settings modal
+        document.getElementById('settings-btn').addEventListener('click', () => {
+            document.getElementById('settings-modal').style.display = 'flex';
+        });
+        
+        document.getElementById('settings-close').addEventListener('click', () => {
+            document.getElementById('settings-modal').style.display = 'none';
+        });
+        
+        // Hear self toggle
+        document.getElementById('hear-self-toggle').addEventListener('change', (e) => {
+            window.hearSelfEnabled = e.target.checked;
+            // Update muted on own video
+            const myVideo = document.getElementById(`video-${currentUser.id}`);
+            if (myVideo) {
+                myVideo.muted = !window.hearSelfEnabled;
+            }
+        });
+        
+        // Cleanup on page unload only when actually closing/navigating
+        let isUnloading = false;
+        window.addEventListener('beforeunload', (event) => {
+            if (!isUnloading) {
+                isUnloading = true;
+                leaveRoom();
+            }
+        });
+        
+        init();
+    </script>
+</body>
+</html>

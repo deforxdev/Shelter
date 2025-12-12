@@ -1,0 +1,373 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Registration Page - responsive container */
+.registration-page {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    background: #1a1a1a;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Background */
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('Assets/фон.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+/* Yellow Lines */
+.left-lines {
+    position: absolute;
+    width: 52%;
+    height: 68px;
+    left: -2%;
+    top: 50%;
+    transform: translateY(-50%) rotate(-0.64deg);
+    background: url('Assets/left_lines 1.png');
+    background-size: contain;
+    background-repeat: repeat-x;
+    z-index: 2;
+}
+
+.right-lines {
+    position: absolute;
+    width: 52%;
+    height: 72px;
+    right: -2%;
+    top: 50%;
+    transform: translateY(-50%) rotate(-0.64deg);
+    background: url('Assets/right_lines 1.png');
+    background-size: contain;
+    background-repeat: repeat-x;
+    z-index: 2;
+}
+
+/* Paper Background (larger for registration) */
+.paper-big {
+    position: absolute;
+    width: 700px;
+    height: 950px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: url('Assets/paper big2 1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+/* Scotch Tape */
+.scootch-left {
+    position: absolute;
+    width: 180px;
+    height: 95px;
+    left: calc(50% - 420px);
+    top: calc(50% - 380px);
+    background: url('Assets/scootch 4.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: rotate(15.53deg);
+    z-index: 5;
+}
+
+.scootch-right {
+    position: absolute;
+    width: 180px;
+    height: 95px;
+    right: calc(50% - 440px);
+    top: calc(50% - 420px);
+    background: url('Assets/scootch 4.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: matrix(-0.94, 0.35, 0.35, 0.94, 0, 0);
+    z-index: 5;
+}
+
+/* Logo */
+.logo {
+    position: absolute;
+    left: calc(50% - 235px);
+    top: calc(50% - 370px);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 10;
+}
+
+.shelter-icon {
+    width: 31px;
+    height: 31px;
+}
+
+.shelter-text {
+    font-family: 'Kenia', cursive;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 36px;
+    color: rgba(0, 0, 0, 0.58);
+}
+
+/* Title */
+.title {
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 340px);
+    transform: translateX(-50%);
+    font-family: 'Kelly Slab', cursive;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 44px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-decoration-line: underline;
+    color: #000000;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+/* Subtitle */
+.subtitle {
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 295px);
+    transform: translateX(-50%);
+    font-family: 'Kelly Slab', cursive;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #54524D;
+    z-index: 9;
+}
+
+/* Registration Form */
+.registration-form {
+    position: absolute;
+    width: 513px;
+    left: 50%;
+    top: calc(50% - 230px);
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+/* Form Group */
+.form-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+/* Form Label */
+.form-label {
+    display: block;
+    font-family: 'Kelly Slab', cursive;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0.04em;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+/* Form Input */
+.form-input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 49px;
+    border: 2px solid #373026;
+    background: transparent;
+    font-family: 'Kelly Slab', cursive;
+    font-size: 24px;
+    color: #000000;
+    padding: 0 15px;
+    outline: none;
+}
+
+.form-input:focus {
+    border-color: #261E1A;
+    box-shadow: 0 0 5px rgba(38, 30, 26, 0.3);
+}
+
+/* Error Message */
+.error-message {
+    display: none;
+    font-family: 'Kelly Slab', cursive;
+    font-size: 18px;
+    color: #c41e3a;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Sign Up Button */
+.sign-up-btn {
+    display: block;
+    width: 173px;
+    height: 49px;
+    margin: 25px auto 0;
+    background: #261E1A;
+    border: none;
+    font-family: 'Kelly Slab', cursive;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #C7C4B8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sign-up-btn:hover {
+    background: #3a2e28;
+    transform: scale(1.02);
+}
+
+/* Login Link */
+.login-link {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 320px);
+    transform: translateX(-50%);
+    font-family: 'Kelly Slab', cursive;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0.04em;
+    color: #000000;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.login-link a {
+    color: #000000;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+.login-link a:hover {
+    color: #54524D;
+}
+
+/* Pen Decoration */
+.pen {
+    position: absolute;
+    width: 111px;
+    height: 658px;
+    right: calc(50% - 440px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: url('Assets/pen 1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 10;
+}
+
+/* Bottom Bar */
+.bottom-bar {
+    position: absolute;
+    width: 100%;
+    height: 56px;
+    left: 0;
+    bottom: 0;
+    background: url('Assets/Header.png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0px -4px 32.6px 11px rgba(0, 0, 0, 0.25);
+    z-index: 20;
+}
+
+/* PC and Laptop Optimization */
+@media (min-width: 1200px) {
+    .paper-big {
+        width: 850px;
+        height: 1150px;
+    }
+
+    .registration-form {
+        width: 615px;
+        top: calc(50% - 260px);
+    }
+
+    .title {
+        font-size: 43px;
+        top: calc(50% - 380px);
+    }
+
+    .subtitle {
+        font-size: 24px;
+        top: calc(50% - 335px);
+    }
+
+    .logo {
+        left: calc(50% - 280px);
+        top: calc(50% - 400px);
+    }
+
+    .shelter-text {
+        font-size: 43px;
+    }
+
+    .form-label {
+        font-size: 29px;
+    }
+
+    .form-input {
+        font-size: 29px;
+        height: 59px;
+    }
+
+    .sign-up-btn {
+        font-size: 29px;
+        width: 207px;
+        height: 59px;
+    }
+
+    .login-link {
+        font-size: 29px;
+        top: calc(50% + 360px);
+    }
+
+    .pen {
+        right: calc(50% - 480px);
+    }
+
+    .scootch-left {
+        left: calc(50% - 460px);
+        top: calc(50% - 420px);
+    }
+
+    .scootch-right {
+        right: calc(50% - 480px);
+        top: calc(50% - 460px);
+    }
+}

@@ -1,0 +1,846 @@
+
+/* Profile card */
+.profile-card {
+    position: absolute;
+    width: 201px;
+    height: 307px;
+    right: 20px;
+    top: -130px;
+    overflow: visible;
+}
+
+/* Group 22 */
+.group-22 {
+    position: absolute;
+    width: 201px;
+    height: 307px;
+    left: 0px;
+    top: 0px;
+}
+
+/* Group 21 */
+.group-21 {
+    position: absolute;
+    width: 201px;
+    height: 307px;
+    left: 0px;
+    top: 0px;
+    filter: drop-shadow(4px 4px 11.3px rgba(0, 0, 0, 0.67));
+}
+
+/* Бейдж1 1 */
+.badge-bottom {
+    position: absolute;
+    width: 201px;
+    height: 279px;
+    left: 0px;
+        top: 18px;
+    z-index: 1;
+    object-fit: contain;
+}
+
+/* Бейдж2 1 */
+.badge-t    op {
+    position: absolute;
+    width: 201px;
+    height: 307px;
+    left: 0px;
+    top: 0px;
+    z-index: 2;
+    object-fit: contain;
+}
+
+/* icon/log-out */
+.profile-logout {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 28px;
+    top: 146px;
+    z-index: 3;
+}
+
+/* icon/cog */
+.settings-icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 149px;
+    top: 146px;
+    z-index: 3;
+}
+
+/* Djullaii */
+.profile-name {
+    position: absolute;
+    width: 136px;
+    height: 19px;
+    left: 32px;
+    top: 148px;
+    font-family: 'Kelly Slab';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000;
+    z-index: 3;
+}
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Kelly Slab', cursive;
+}
+
+/* Rooms Page */
+.rooms-page {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    background: #1a1a1a;
+    overflow: hidden;
+}
+
+/* Background */
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('Assets/фон.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+/* ============ HEADER ============ */
+.header {
+    position: fixed;
+    width: 100%;
+    height: 75px;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.header-bar {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    left: 0;
+    top: -50px;
+    background: url('Assets/Header.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    box-shadow: 0px 4px 32.6px 11px rgba(0, 0, 0, 0.25);
+}
+
+.header-gradient {
+    display: none;
+}
+
+/* Header Logo */
+.header-logo {
+    position: absolute;
+    left: 30px;
+    top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 101;
+}
+
+.header-icon {
+    width: 39px;
+    height: 39px;
+    filter: drop-shadow(1px 1px 3.7px rgba(0, 0, 0, 0.85)) brightness(0) invert(1);
+}
+
+.header-title {
+    font-family: 'Kenia', cursive;
+    font-size: 40px;
+    line-height: 40px;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 5.8px #000000;
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: none;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    z-index: 101;
+}
+
+.nav-border {
+    width: 22px;
+    height: 55px;
+    background: url('Assets/Border.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.nav-link {
+    padding: 0 40px;
+    font-family: 'Kelly Slab', cursive;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #A3A3A3;
+    text-shadow: 1px 1px 3.7px rgba(0, 0, 0, 0.85);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #C7C4B8;
+}
+
+.nav-link.active {
+    color: #C7C4B8;
+}
+
+/* Profile Button */
+.profile-btn {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.profile-badge-top {
+    position: absolute;
+    width: 201px;
+    height: 285px;
+    left: 0px;
+    top: 20px;
+    z-index: 2;
+    object-fit: contain;
+}
+.profile-badge-bottom {
+    position: absolute;
+    width: 201px;
+    height: 285px;
+    left: 0px;
+    top: 20px;
+    z-index: 1;
+    object-fit: contain;
+    /* Вирівнюємо бейджі */
+}
+.profile-logout {
+    width: 24px;
+    height: 24px;
+    opacity: 0.8;
+}
+
+.profile-name {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 18px;
+    color: #000000;
+}
+
+.settings-icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.8;
+}
+
+/* ============ DOOR ============ */
+.door {
+    position: absolute;
+    width: 691px;
+    height: 1080px;
+    left: 62px;
+    top: 16px;
+    z-index: 2;
+    object-fit: contain;
+    background-image: url('Assets/door1 1.png');
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+    border-radius: 24px;
+    box-shadow: 0 0 24px 0 rgba(0,0,0,0.7);
+    background-color: transparent;
+}
+
+/* ============ MAIN CONTENT ============ */
+.main-content {
+    position: absolute;
+    left: 692px;
+    top: 60px;
+    right: 50px;
+    bottom: 20px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+}
+
+/* Page Title */
+.page-title {
+    font-family: 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 78px;
+    text-align: center;
+    color: #807D73;
+    margin-bottom: 20px;
+}
+
+/* Search Container */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.search-box {
+    position: relative;
+    width: 388px;
+    height: 41px;
+    border: 2px solid #C7C4B8;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background: transparent;
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+}
+
+.search-input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    background: transparent;
+    font-family: 'Kelly Slab', cursive;
+    font-size: 24px;
+    color: #C7C4B8;
+    padding-left: 10px;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #35322D;
+}
+
+.filter-btn {
+    width: 41px;
+    height: 41px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-icon {
+    width: 29px;
+    height: 28px;
+    opacity: 0.7;
+}
+
+/* ============ ROOM LIST ============ */
+.room-list {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: visible;
+    padding: 0 70px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.room-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* Room Card */
+.room-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 120px;
+}
+
+.room-card .scootch-left {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0%, -50%);
+    width: 180px;
+    height: 95px;
+    background: url('Assets/scootch 4.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 5;
+}
+
+.room-card .scootch-right {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0%, -50%) scaleX(-1);
+    width: 180px;
+    height: 95px;
+    background: url('Assets/scootch 4.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 5;
+}
+
+.room-paper {
+    flex: 1;
+    background: url('Assets/paper 1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 25px 180px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 167px;
+}
+
+.room-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.room-name-row,
+.room-players-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.room-label,
+.players-label {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.04em;
+    color: #373026;
+}
+
+.room-name {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.04em;
+    color: #373026;
+    text-decoration: underline;
+}
+
+.players-count {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.04em;
+    color: #373026;
+    padding: 2px 15px;
+    border: 2px solid #373026;
+}
+
+.room-full {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.04em;
+    color: #807D73;
+}
+
+.room-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.status-text {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.04em;
+    text-decoration: underline;
+}
+
+.status-text.waiting {
+    color: #9C6F25;
+}
+
+.status-text.started {
+    color: #807D73;
+}
+
+.join-btn {
+    font-family: 'Impact', sans-serif;
+    font-size: 48px;
+    line-height: 59px;
+    text-align: right;
+    color: #373026;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.join-btn:hover {
+    transform: scale(1.05);
+}
+
+/* ============ PAGINATION ============ */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.page-btn {
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.page-text,
+.page-number {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.04em;
+    color: #C7C4B8;
+}
+
+/* ============ CREATE ROOM BUTTON ============ */
+.create-room-btn {
+    position: relative;
+    width: 390px;
+    height: 100px;
+    margin: 0 auto;
+    background: url('Assets/button_create.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    font-family: 'Impact', sans-serif;
+    font-size: 40px;
+    line-height: 49px;
+    text-align: center;
+    color: #C7C5B7;
+    filter: drop-shadow(0px 0px 48.6px #000000);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.create-room-btn:hover {
+    transform: scale(1.02);
+    filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.7));
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1600px) {
+    .door {
+        width: 450px;
+        left: 30px;
+    }
+    
+    .main-content {
+        left: 450px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .door {
+        width: 350px;
+        left: 20px;
+    }
+    
+    .main-content {
+        left: 350px;
+    }
+    
+    .page-title {
+        font-size: 48px;
+        line-height: 58px;
+    }
+    
+    .room-label,
+    .players-label,
+    .room-name,
+    .players-count,
+    .room-full,
+    .status-text {
+        font-size: 28px;
+        line-height: 34px;
+    }
+    
+    .join-btn {
+        font-size: 36px;
+        line-height: 44px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .door {
+        display: none;
+    }
+    
+    .main-content {
+        left: 50px;
+    }
+}
+
+/* ============ MODALS ============ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    width: 500px;
+    max-width: 90%;
+}
+
+.modal-content.small {
+    width: 400px;
+}
+
+.modal-scootch-left,
+.modal-scootch-right {
+    position: absolute;
+    width: 120px;
+    height: 63px;
+    background: url('Assets/scootch 4.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 5;
+    top: -20px;
+}
+
+.modal-scootch-left {
+    left: -30px;
+    transform: rotate(15deg);
+}
+
+.modal-scootch-right {
+    right: -30px;
+    transform: rotate(-15deg) scaleX(-1);
+}
+
+.modal-paper {
+    background: url('Assets/paper 1.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 40px;
+    min-height: 300px;
+}
+
+.modal-title {
+    font-family: 'Impact', sans-serif;
+    font-size: 36px;
+    line-height: 44px;
+    color: #373026;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 24px;
+    line-height: 29px;
+    color: #373026;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+    height: 45px;
+    padding: 0 15px;
+    font-family: 'Kelly Slab', cursive;
+    font-size: 20px;
+    color: #373026;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid #373026;
+    outline: none;
+}
+
+.form-select {
+    cursor: pointer;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group .form-label {
+    margin-bottom: 0;
+}
+
+.form-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.modal-btn {
+    padding: 12px 30px;
+    font-family: 'Kelly Slab', cursive;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.modal-btn.create-btn {
+    background: #261E1A;
+    color: #C7C4B8;
+}
+
+.modal-btn.cancel-btn {
+    background: #807D73;
+    color: #C7C4B8;
+}
+
+.modal-btn:hover {
+    transform: scale(1.05);
+}
+
+/* No rooms message */
+.no-rooms {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 28px;
+    color: #807D73;
+    text-align: center;
+    padding: 50px;
+}
+
+/* Private room indicator */
+.room-private {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+/* Disabled join button */
+.join-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* PC and Laptop Optimization */
+@media (min-width: 1600px) {
+    .door {
+        width: 800px;
+        left: 80px;
+    }
+
+    .main-content {
+        left: 801px;
+    }
+
+    .page-title {
+        font-size: 80px;
+        line-height: 98px;
+    }
+
+    .search-box {
+        width: 465px;
+    }
+
+    .search-input {
+        font-size: 29px;
+    }
+
+    .room-label,
+    .players-label,
+    .room-name,
+    .players-count,
+    .room-full,
+    .status-text {
+        font-size: 43px;
+        line-height: 52px;
+    }
+
+    .join-btn {
+        font-size: 58px;
+        line-height: 71px;
+    }
+
+    .create-room-btn {
+        width: 468px;
+        height: 120px;
+        font-size: 48px;
+        line-height: 59px;
+    }
+
+    .page-text,
+    .page-number {
+        font-size: 43px;
+        line-height: 52px;
+    }
+
+    .profile-card {
+        right: 30px;
+    }
+}

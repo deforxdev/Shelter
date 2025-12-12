@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Shelter</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kenia&family=Kelly+Slab&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-page">
+        <!-- Background -->
+        <div class="background"></div>
+        
+        <!-- Yellow Lines -->
+        <div class="left-lines"></div>
+        <div class="right-lines"></div>
+        
+        <!-- Paper Background -->
+        <div class="paper-small"></div>
+        
+        <!-- Scotch Tape -->
+        <div class="scootch-left"></div>
+        <div class="scootch-right"></div>
+        
+        <!-- Logo -->
+        <div class="logo">
+            <img src="Assets/Component 1.png" alt="Shelter Icon" class="shelter-icon">
+            <span class="shelter-text">Shelter</span>
+        </div>
+        
+        <!-- Title -->
+        <h1 class="title">Login Blank</h1>
+        <p class="subtitle">Potential survivor/shelter member<br>Identification</p>
+        
+        <!-- Login Form -->
+        <form id="login-form" class="login-form">
+            <div class="form-group">
+                <label class="form-label">Email.</label>
+                <input type="email" id="email" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Password.</label>
+                <input type="password" id="password" class="form-input" required>
+            </div>
+            
+            <div id="error-message" class="error-message"></div>
+            
+            <button type="submit" class="login-btn">Log in</button>
+        </form>
+        
+        <!-- Don't have account link -->
+        <div class="register-link">
+            <span>*Don't have an account?</span>
+            <a href="registration.html">Sign up</a>
+        </div>
+        
+        <!-- Pen decoration -->
+        <div class="pen"></div>
+        
+        <!-- Bottom bar -->
+        <div class="bottom-bar"></div>
+        
+        <!-- Loading Screen -->
+        <div class="loading-screen active" id="loading-screen">
+            <div class="loading-background"></div>
+            <div class="loading-door">
+                <img src="Assets/doorloading.png" alt="Loading">
+                <div class="loading-logo">
+                    <img src="Assets/Component 1 (1).svg" alt="Logo">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script>
+        // Hide loading screen after page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.remove('active');
+            }, 1500);
+        });
+        
+        // Login Form Handler
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            // Clear previous errors
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+            
+            try {
+                // Sign in with Supabase
+                const { data, error } = await window.supabaseAuth.signIn(email, password);
+                
+                if (error) {
+                    errorMessage.textContent = error.message;
+                    errorMessage.style.display = 'block';
+                } else {
+                    // Redirect to rooms page after successful login
+                    window.location.href = 'rooms.html';
+                }
+            } catch (err) {
+                errorMessage.textContent = 'An error occurred. Please try again.';
+                errorMessage.style.display = 'block';
+                console.error(err);
+            }
+        });
+
+        // Check if user is already logged in on page load
+        async function checkSession() {
+            const user = await window.supabaseAuth.getCurrentUser();
+            if (user) {
+                // User is already logged in, redirect to rooms
+                window.location.href = 'rooms.html';
+            }
+        }
+        checkSession();
+    </script>
+</body>
+</html>

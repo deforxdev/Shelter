@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game - Shelter</title>
+    <link rel="stylesheet" href="game.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kenia&family=Kelly+Slab&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-page">
+        <!-- Background -->
+        <div class="background"></div>
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="header-bar"></div>
+            <div class="header-gradient"></div>
+            <div class="header-logo">
+                <img src="Assets/Component 1 (1).svg" alt="Shelter" class="header-icon">
+                <span class="header-title">Shelter</span>
+            </div>
+        </header>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-bar"></div>
+        </footer>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel - Players Grid -->
+            <div class="players-panel">
+                <div class="players-grid" id="players-grid">
+                    <!-- Players will be generated here -->
+                </div>
+                <div class="pagination">
+                    <button class="page-btn prev-btn" id="prev-page">&lt;</button>
+                    <span class="page-info" id="page-info">1 / 2</span>
+                    <button class="page-btn next-btn" id="next-page">&gt;</button>
+                </div>
+            </div>
+            
+            <!-- Center Panel - Current Speaker -->
+            <div class="center-panel">
+                <h2 class="bunker-slots">Місць в бункері <span id="bunker-slots">0</span></h2>
+                <h3 class="round-info">Раунд <span id="current-round">1</span></h3>
+                
+                <div class="speaker-frame">
+                    <div class="speaker-video">
+                        <video autoplay playsinline id="speaker-video"></video>
+                    </div>
+                    <span class="speaker-name" id="speaker-name">Qesa</span>
+                </div>
+                
+                <div class="turn-timer" id="turn-timer">
+                    <span class="timer-text">Залишилось: <span id="time-left">02:00</span></span>
+                </div>
+                
+                <button class="end-turn-btn" id="end-turn-btn" style="display: none;">Закінчити хід</button>
+            </div>
+            
+            <!-- Right Panel - Character Stats -->
+            <div class="stats-panel">
+                <div class="stats-paper">
+                    <!-- Page 1 -->
+                    <div class="stats-page" id="stats-page-1">
+                        <div class="stat-row">
+                            <span class="stat-label">СТАТЬ:</span>
+                            <span class="stat-value" id="stat-gender">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">ВІК:</span>
+                            <span class="stat-value" id="stat-age">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">ПРОФЕСІЯ:</span>
+                            <span class="stat-value" id="stat-profession">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">ХАРАКТЕР:</span>
+                            <span class="stat-value" id="stat-character">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">ЗДОРОВ'Я:</span>
+                            <span class="stat-value" id="stat-health">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">ФОБІЯ:</span>
+                            <span class="stat-value" id="stat-phobia">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">НАВИК:</span>
+                            <span class="stat-value" id="stat-skill">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">ХОБі:</span>
+                            <span class="stat-value" id="stat-hobby">-</span>
+                        </div>
+                    </div>
+                    <!-- Page 2 -->
+                    <div class="stats-page" id="stats-page-2" style="display: none;">
+                        <div class="stat-row">
+                            <span class="stat-label">ФАКТ 1:</span>
+                            <span class="stat-value" id="stat-fact1">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">ФАКТ 2:</span>
+                            <span class="stat-value" id="stat-fact2">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">БАГАЖ:</span>
+                            <span class="stat-value" id="stat-baggage">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">КАРТА ДІЇ:</span>
+                            <span class="stat-value" id="stat-action">-</span>
+                        </div>
+                    </div>
+                    <div class="stats-pagination">
+                        <button class="stats-page-btn" id="stats-prev">&lt;</button>
+                        <span class="stats-page-info" id="stats-page-info">1 / 2</span>
+                        <button class="stats-page-btn" id="stats-next">&gt;</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Skip Vote Button (shown during voting phase) -->
+        <button class="skip-vote-btn" id="skip-vote-btn">Не голосувати</button>
+        
+        <!-- Results Modal -->
+        <div class="modal-overlay" id="results-modal" style="display: none;">
+            <div class="results-panel">
+                <h2 class="results-title" id="results-title">Результати голосування</h2>
+                <p class="results-text" id="results-text"></p>
+                <button class="results-btn" id="results-continue">Продовжити</button>
+            </div>
+        </div>
+        
+        <!-- Game Over Modal -->
+        <div class="modal-overlay" id="gameover-modal" style="display: none;">
+            <div class="gameover-panel">
+                <h2 class="gameover-title">Гра завершена!</h2>
+                <p class="gameover-text">В бункері залишились:</p>
+                <div class="survivors-list" id="survivors-list"></div>
+                <button class="gameover-btn" id="gameover-btn">Повернутись до лобі</button>
+            </div>
+        </div>
+        
+        <!-- Settings Modal -->
+        <div class="modal-overlay" id="settings-modal" style="display: none;">
+            <div class="settings-panel">
+                <h2 class="settings-title">Налаштування</h2>
+                <div class="setting-row">
+                    <span class="setting-label">Чути себе через мікрофон:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="hear-self-toggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <button class="settings-close-btn" id="settings-close">Закрити</button>
+            </div>
+        </div>
+        
+        <!-- Player Volume Context Menu -->
+        <div class="volume-menu" id="volume-menu" style="display: none;">
+            <div class="volume-menu-header">
+                <span id="volume-player-name">Гравець</span>
+            </div>
+            <div class="volume-slider-container">
+                <span class="volume-icon">🔊</span>
+                <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="100">
+                <span class="volume-value" id="volume-value">100%</span>
+            </div>
+        </div>
+        
+        <!-- Loading Screen -->
+        <div class="loading-screen" id="loading-screen">
+            <div class="loading-background"></div>
+            <div class="loading-door">
+                <img src="Assets/doorloading.png" alt="Loading">
+                <div class="loading-logo">
+                    <img src="Assets/Component 1 (1).svg" alt="Logo">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Controls -->
+        <div class="bottom-controls">
+            <button class="control-btn exit-btn" id="exit-btn" title="Вийти з гри">
+                <span style="font-size: 24px; color: #ff4444;">✖</span>
+            </button>
+            <button class="control-btn mic-btn" id="mic-btn">
+                <img src="Assets/ChatGPT Image 6 дек. 2025 г., 21_21_56 1.png" alt="Microphone">
+            </button>
+            <button class="control-btn camera-btn" id="camera-btn">
+                <img src="Assets/ChatGPT Image 6 дек. 2025 г., 21_23_41 1.png" alt="Camera">
+            </button>
+            <button class="control-btn settings-btn" id="settings-btn">
+                <img src="Assets/ChatGPT Image 7 дек. 2025 г., 12_49_16 (1) 2.png" alt="Settings">
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="mediaManager.js"></script>
+    <script src="webrtc.js"></script>
+    <script src="gameData.js"></script>
+    <script>
+        // Global settings - must be initialized first
+        window.hearSelfEnabled = false;
+        window.playerVolumes = {};
+        window.micEnabled = true;
+        window.cameraEnabled = true;
+        
+        // Get room ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomId = urlParams.get('id');
+        
+        let currentRoom = null;
+        let currentUser = null;
+        let gameState = null;
+        let turnTimer = null;
+        let currentPage = 0;
+        let playersPerPage = 9;
+        let statsPage = 0; // 0 = основні, 1 = додаткові
+        let webrtcManager = null;
+        
+        // Media manager instance
+        const media = window.mediaManager;
+        
+        // Show loading
+        document.getElementById('loading-screen').classList.add('active');
+        
+        // Initialize camera (швидка ініціалізація)
+        async function initCamera() {
+            console.time('initCamera total');
+            
+            try {
+                // Швидка ініціалізація через MediaManager
+                const stream = await media.init({
+                    video: true,
+                    audio: true
+                });
+                
+                if (stream) {
+                    console.log('Camera initialized successfully');
+                    
+                    // Прив'язати до відео коли UI готовий
+                    media.onStreamReady = () => {
+                        attachLocalStream();
+                    };
+                }
+                
+                console.timeEnd('initCamera total');
+                return stream;
+                
+            } catch (error) {
+                console.error('Camera init error:', error);
+                console.timeEnd('initCamera total');
+                return null;
+            }
+        }
+        
+        // Update visibility of my video elements based on camera state
+        function updateMyVideoVisibility() {
+            if (!currentUser) return;
+            
+            const myVideo = document.getElementById(`video-${currentUser.id}`);
+            if (myVideo) {
+                myVideo.style.visibility = window.cameraEnabled ? 'visible' : 'hidden';
+            }
+            
+            const speakerVideo = document.getElementById('speaker-video');
+            const speaker = getCurrentSpeaker();
+            if (speakerVideo && speaker && speaker.id === currentUser.id) {
+                speakerVideo.style.visibility = window.cameraEnabled ? 'visible' : 'hidden';
+            }
+        }
+        
+        // Initialize WebRTC
+        async function initWebRTC() {
+            const client = window.supabaseAuth.initSupabase();
+            webrtcManager = new WebRTCManager();
+            await webrtcManager.init(client, roomId, currentUser.id);
+
+            // Override remote stream callback
+            webrtcManager.onRemoteStream = (peerId, stream) => {
+                displayRemoteVideo(peerId, stream);
+            };
+        }
+
+        // Display remote video in player slot
+        function displayRemoteVideo(peerId, stream) {
+            const videoElements = document.querySelectorAll(`[data-player-id="${peerId}"] video`);
+            videoElements.forEach(video => {
+                video.srcObject = stream;
+            });
+        }
+
+        // Initialize game
+        async function init() {
+            currentUser = await window.supabaseAuth.getCurrentUser();
+            if (!currentUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            if (!roomId) {
+                window.location.href = 'rooms.html';
+                return;
+            }
+
+            await loadRoom();
+            await initGameState();
+
+            // Set user session for cleanup
+            if (typeof window.require !== 'undefined') {
+                const { ipcRenderer } = window.require('electron');
+                ipcRenderer.send('set-user-session', {
+                    userId: currentUser.id,
+                    roomId: roomId
+                });
+            }
+
+            await initWebRTC();
+            await initCamera();
+            setupRealtimeUpdates();
+            setupCameraControls();
+
+            // Hide loading
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.remove('active');
+            }, 1500);
+        }
+        
+        // Load room data
+        async function loadRoom() {
+            const client = window.supabaseAuth.initSupabase();
+            
+            const { data: room, error } = await client
+                .from('rooms')
+                .select('*')
+                .eq('id', roomId)
+                .single();
+            
+            if (error || !room) {
+                alert('Кімната не знайдена');
+                window.location.href = 'rooms.html';
+                return;
+            }
+            
+            currentRoom = room;
+        }
+        
+        // Initialize or load game state
+        async function initGameState() {
+            const client = window.supabaseAuth.initSupabase();
+            
+            // Check if game state exists
+            const { data: existing, error: fetchError } = await client
+                .from('game_states')
+                .select('*')
+                .eq('room_id', roomId)
+                .maybeSingle();
+            
+            if (existing) {
+                gameState = existing;
+            } else {
+                // Create new game state
+                const players = currentRoom.players || [];
+                const bunkerSlots = Math.floor(players.length / 2);
+                
+                // Initialize players with turn order and generated stats
+                const gamePlayers = players.map((p, index) => ({
+                    ...p,
+                    turnOrder: index,
+                    eliminated: false,
+                    hasSpoken: false,
+                    votes: 0,
+                    stats: GameData.generatePlayerStats()
+                }));
+                
+                // Generate bunker info
+                const bunkerInfo = GameData.generateBunkerInfo(players.length);
+                
+                const newGameState = {
+                    room_id: roomId,
+                    current_round: 1,
+                    current_turn: 0,
+                    phase: 'speaking', // speaking, voting, results
+                    bunker_slots: bunkerSlots,
+                    players: gamePlayers,
+                    bunker_info: bunkerInfo,
+                    turn_duration: currentRoom.turn_duration || 120, // seconds
+                    vote_duration: currentRoom.vote_duration || 60, // seconds
+                    turn_started_at: new Date().toISOString(),
+                    votes: {}
+                };
+                
+                const { data, error } = await client
+                    .from('game_states')
+                    .insert(newGameState)
+                    .select()
+                    .single();
+                
+                if (error) {
+                    console.error('Error creating game state:', error);
+                    return;
+                }
+                
+                gameState = data;
+            }
+            
+            updateUI();
+        }
+        
+        // Update UI
+        function updateUI() {
+            if (!gameState) return;
+            
+            // Update bunker slots
+            document.getElementById('bunker-slots').textContent = gameState.bunker_slots;
+            document.getElementById('current-round').textContent = gameState.current_round;
+            
+            // Get active players (not eliminated)
+            const activePlayers = gameState.players.filter(p => !p.eliminated);
+            
+            // Render players grid
+            renderPlayersGrid(activePlayers);
+            
+            // Update current speaker
+            updateCurrentSpeaker();
+            
+            // Update stats panel (show current user's stats)
+            updateStatsPanel();
+            
+            // Show/hide end turn button
+            const currentSpeaker = getCurrentSpeaker();
+            const endTurnBtn = document.getElementById('end-turn-btn');
+            if (currentSpeaker && currentSpeaker.id === currentUser.id && gameState.phase === 'speaking') {
+                endTurnBtn.style.display = 'block';
+            } else {
+                endTurnBtn.style.display = 'none';
+            }
+            
+            // Check game over
+            checkGameOver();
+            
+            // Add/remove voting-phase class for showing vote buttons
+            if (gameState.phase === 'voting') {
+                document.querySelector('.game-page').classList.add('voting-phase');
+                document.getElementById('skip-vote-btn').style.display = 'block';
+            } else {
+                document.querySelector('.game-page').classList.remove('voting-phase');
+                document.getElementById('skip-vote-btn').style.display = 'none';
+            }
+        }
+        
+        // Render players grid
+        function renderPlayersGrid(players) {
+            const grid = document.getElementById('players-grid');
+            grid.innerHTML = '';
+            
+            const totalPages = Math.ceil(players.length / playersPerPage);
+            const startIndex = currentPage * playersPerPage;
+            const endIndex = Math.min(startIndex + playersPerPage, players.length);
+            const pagePlayers = players.slice(startIndex, endIndex);
+            
+            // Check if current user already voted
+            const myVote = gameState.votes ? gameState.votes[currentUser.id] : null;
+            
+            pagePlayers.forEach((player, index) => {
+                const isCurrentUser = player.id === currentUser.id;
+                const isSpeaking = getCurrentSpeaker()?.id === player.id;
+                const isVotedFor = myVote === player.id;
+                
+                const slot = document.createElement('div');
+                slot.className = `player-slot ${isSpeaking ? 'speaking' : ''} ${player.eliminated ? 'eliminated' : ''}`;
+                slot.setAttribute('data-player-id', player.id);
+                
+                const showVoteBtn = !player.eliminated && player.id !== currentUser.id;
+                
+                slot.innerHTML = `
+                    <div class="player-frame">
+                        <div class="player-avatar">
+                            <video autoplay playsinline id="video-${player.id}"></video>
+                        </div>
+                        ${showVoteBtn ? `<button class="vote-btn ${isVotedFor ? 'voted' : ''}" data-player-id="${player.id}">✕</button>` : ''}
+                    </div>
+                    <span class="player-name">${isCurrentUser ? 'ВИ' : (player.name || 'Гравець')}</span>
+                `;
+                
+                grid.appendChild(slot);
+            });
+            
+            // Update pagination
+            document.getElementById('page-info').textContent = `${currentPage + 1} / ${Math.max(1, totalPages)}`;
+            
+            // Add vote button listeners
+            document.querySelectorAll('.vote-btn').forEach(btn => {
+                btn.addEventListener('click', () => castVote(btn.dataset.playerId));
+            });
+            
+            // Attach local stream to current user's video
+            setTimeout(() => {
+                attachLocalStream();
+                updateSpeakerVideo();
+                // Apply stored volumes to other players
+                applyStoredVolumes();
+            }, 100);
+        }
+        
+        // Apply stored volumes to all player videos
+        function applyStoredVolumes() {
+            Object.entries(window.playerVolumes).forEach(([playerId, volume]) => {
+                const videoElement = document.getElementById(`video-${playerId}`);
+                if (videoElement) {
+                    videoElement.volume = volume / 100;
+                }
+            });
+        }
+        
+        // Attach local stream to user's video element
+        function attachLocalStream() {
+            const stream = media.localStream;
+            if (!stream || !currentUser) return;
+            
+            const videoElement = document.getElementById(`video-${currentUser.id}`);
+            if (videoElement) {
+                media.attachToVideo(videoElement, {
+                    muted: (window.hearSelfEnabled !== true),
+                    mirror: true
+                });
+                // Set visibility based on camera state
+                videoElement.style.visibility = (window.cameraEnabled !== false) ? 'visible' : 'hidden';
+            }
+        }
+        
+        // Update muted state for self video
+        function updateSelfVideoMuted() {
+            if (!currentUser) return;
+            
+            const shouldMute = (window.hearSelfEnabled !== true);
+            console.log('updateSelfVideoMuted - hearSelfEnabled:', window.hearSelfEnabled, 'shouldMute:', shouldMute);
+            
+            const myVideo = document.getElementById(`video-${currentUser.id}`);
+            if (myVideo) {
+                myVideo.muted = shouldMute;
+                console.log('My video muted set to:', shouldMute);
+            }
+            
+            // Also update speaker video if it's current user
+            const speakerVideo = document.getElementById('speaker-video');
+            const speaker = getCurrentSpeaker();
+            if (speakerVideo && speaker && speaker.id === currentUser.id) {
+                speakerVideo.muted = shouldMute;
+            }
+        }
+        
+        // Update speaker video
+        function updateSpeakerVideo() {
+            const speaker = getCurrentSpeaker();
+            const speakerVideo = document.getElementById('speaker-video');
+            const stream = media.localStream;
+            
+            if (speaker && speaker.id === currentUser.id && stream) {
+                media.attachToVideo(speakerVideo, {
+                    muted: (window.hearSelfEnabled !== true),
+                    mirror: true
+                });
+                speakerVideo.style.visibility = (window.cameraEnabled !== false) ? 'visible' : 'hidden';
+            }
+        }
+        
+        // Get current speaker
+        function getCurrentSpeaker() {
+            if (!gameState) return null;
+            const activePlayers = gameState.players.filter(p => !p.eliminated);
+            return activePlayers.find(p => p.turnOrder === gameState.current_turn % activePlayers.length);
+        }
+        
+        // Update current speaker display
+        function updateCurrentSpeaker() {
+            const speaker = getCurrentSpeaker();
+            if (speaker) {
+                document.getElementById('speaker-name').textContent = 
+                    speaker.id === currentUser.id ? 'ВИ' : (speaker.name || 'Гравець');
+            }
+            
+            // Update timer
+            updateTimer();
+        }
+        
+        // Update timer
+        function updateTimer() {
+            if (!gameState || gameState.phase !== 'speaking') {
+                document.getElementById('time-left').textContent = '--:--';
+                return;
+            }
+            
+            const turnStarted = new Date(gameState.turn_started_at).getTime();
+            const turnDuration = gameState.turn_duration * 1000;
+            const now = Date.now();
+            const elapsed = now - turnStarted;
+            const remaining = Math.max(0, turnDuration - elapsed);
+            
+            const minutes = Math.floor(remaining / 60000);
+            const seconds = Math.floor((remaining % 60000) / 1000);
+            document.getElementById('time-left').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Auto-end turn if time is up
+            if (remaining <= 0) {
+                const speaker = getCurrentSpeaker();
+                if (speaker && speaker.id === currentUser.id) {
+                    endTurn();
+                }
+            }
+        }
+        
+        // Update stats panel
+        function updateStatsPanel() {
+            const myPlayer = gameState.players.find(p => p.id === currentUser.id);
+            if (myPlayer && myPlayer.stats) {
+                const stats = myPlayer.stats;
+                
+                // Сторінка 1 - основні характеристики
+                document.getElementById('stat-gender').textContent = stats.gender || '-';
+                document.getElementById('stat-age').textContent = stats.age || '-';
+                document.getElementById('stat-profession').textContent = stats.profession || '-';
+                document.getElementById('stat-character').textContent = stats.character || '-';
+                document.getElementById('stat-health').textContent = stats.health || '-';
+                document.getElementById('stat-phobia').textContent = stats.phobia || '-';
+                document.getElementById('stat-skill').textContent = stats.skill || '-';
+                document.getElementById('stat-hobby').textContent = stats.hobby || '-';
+                
+                // Сторінка 2 - додаткові характеристики
+                document.getElementById('stat-fact1').textContent = stats.fact1 || '-';
+                document.getElementById('stat-fact2').textContent = stats.fact2 || '-';
+                document.getElementById('stat-baggage').textContent = stats.baggage || '-';
+                document.getElementById('stat-action').textContent = stats.actionCard || '-';
+            }
+        }
+        
+        // Toggle stats page
+        function toggleStatsPage(page) {
+            document.getElementById('stats-page-1').style.display = page === 0 ? 'block' : 'none';
+            document.getElementById('stats-page-2').style.display = page === 1 ? 'block' : 'none';
+            document.getElementById('stats-page-info').textContent = `${page + 1} / 2`;
+        }
+        
+        // Setup camera controls
+        function setupCameraControls() {
+            const micBtn = document.getElementById('mic-btn');
+            const cameraBtn = document.getElementById('camera-btn');
+            
+            // Track states globally
+            window.micEnabled = true;
+            window.cameraEnabled = true;
+            
+            micBtn.addEventListener('click', () => {
+                if (webrtcManager && webrtcManager.localStream) {
+                    window.micEnabled = webrtcManager.toggleMic(!window.micEnabled);
+                    micBtn.classList.toggle('active', window.micEnabled);
+                } else {
+                    alert('Спочатку увімкніть камеру');
+                }
+            });
+            
+            cameraBtn.addEventListener('click', async () => {
+                if (!webrtcManager.localStream) {
+                    // Start camera for the first time
+                    try {
+                        cameraBtn.style.opacity = '0.5';
+                        await webrtcManager.startCamera();
+                        window.cameraEnabled = true;
+                        window.micEnabled = false; // Mic is muted by default
+                        cameraBtn.classList.add('active');
+                        cameraBtn.style.opacity = '1';
+
+                        // Update local video
+                        updateUI();
+
+                        // Connect to other players
+                        if (currentRoom && currentRoom.players) {
+                            await webrtcManager.connectToPeers(currentRoom.players);
+                        }
+                    } catch (error) {
+                        cameraBtn.style.opacity = '1';
+                        console.error('Camera error:', error);
+                        if (error.name === 'NotAllowedError') {
+                            alert('Доступ до камери заборонено. Дозвольте доступ в налаштуваннях.');
+                        } else if (error.name === 'NotFoundError') {
+                            alert('Камера не знайдена.');
+                        } else if (error.name === 'AbortError' || error.name === 'NotReadableError') {
+                            alert('Камера зайнята іншою програмою. Закрийте інші програми що використовують камеру.');
+                        } else {
+                            alert('Не вдалося отримати доступ до камери: ' + error.message);
+                        }
+                    }
+                } else {
+                    // Toggle camera
+                    window.cameraEnabled = webrtcManager.toggleCamera(!window.cameraEnabled);
+                    cameraBtn.classList.toggle('active', window.cameraEnabled);
+
+                    // Hide/show all my video elements
+                    updateMyVideoVisibility();
+                    console.log('Camera toggled:', window.cameraEnabled);
+                }
+            });
+            
+            // Exit button - leave game
+            document.getElementById('exit-btn').addEventListener('click', async () => {
+                if (confirm('Ви впевнені що хочете вийти з гри?')) {
+                    // Clear user session before leaving
+                    if (typeof window.require !== 'undefined') {
+                        const { ipcRenderer } = window.require('electron');
+                        ipcRenderer.send('clear-user-session');
+                    }
+                    await leaveRoomAndCleanup();
+                    window.location.href = 'rooms.html';
+                }
+            });
+            
+            // Settings modal
+            document.getElementById('settings-btn').addEventListener('click', () => {
+                document.getElementById('settings-modal').style.display = 'flex';
+            });
+            
+            document.getElementById('settings-close').addEventListener('click', () => {
+                document.getElementById('settings-modal').style.display = 'none';
+            });
+            
+            // Hear self toggle
+            const hearSelfToggle = document.getElementById('hear-self-toggle');
+            hearSelfToggle.addEventListener('change', (e) => {
+                window.hearSelfEnabled = e.target.checked;
+                console.log('Hear self toggled:', window.hearSelfEnabled);
+                updateSelfVideoMuted();
+            });
+            
+            // Stats pagination
+            document.getElementById('stats-prev').addEventListener('click', () => {
+                if (statsPage > 0) {
+                    statsPage--;
+                    toggleStatsPage(statsPage);
+                }
+            });
+            
+            document.getElementById('stats-next').addEventListener('click', () => {
+                if (statsPage < 1) {
+                    statsPage++;
+                    toggleStatsPage(statsPage);
+                }
+            });
+            
+            // Player volume context menu
+            const volumeMenu = document.getElementById('volume-menu');
+            const volumeSlider = document.getElementById('volume-slider');
+            let selectedPlayerId = null;
+            
+            // Right-click on player frame
+            document.addEventListener('contextmenu', (e) => {
+                const playerSlot = e.target.closest('.player-slot');
+                if (playerSlot) {
+                    e.preventDefault();
+                    const playerId = playerSlot.getAttribute('data-player-id');
+                    if (playerId && playerId !== currentUser.id) {
+                        selectedPlayerId = playerId;
+                        const player = gameState.players.find(p => p.id === playerId);
+                        document.getElementById('volume-player-name').textContent = player?.name || 'Гравець';
+                        
+                        // Get stored volume or default to 100
+                        const currentVolume = window.playerVolumes[playerId] ?? 100;
+                        volumeSlider.value = currentVolume;
+                        document.getElementById('volume-value').textContent = currentVolume + '%';
+                        
+                        volumeMenu.style.display = 'block';
+                        volumeMenu.style.left = e.pageX + 'px';
+                        volumeMenu.style.top = e.pageY + 'px';
+                    }
+                }
+            });
+            
+            // Volume slider change
+            volumeSlider.addEventListener('input', (e) => {
+                const volume = e.target.value;
+                document.getElementById('volume-value').textContent = volume + '%';
+                
+                if (selectedPlayerId) {
+                    window.playerVolumes[selectedPlayerId] = volume;
+                    const videoElement = document.getElementById(`video-${selectedPlayerId}`);
+                    if (videoElement) {
+                        videoElement.volume = volume / 100;
+                    }
+                }
+            });
+            
+            // Close volume menu on click outside
+            document.addEventListener('click', (e) => {
+                if (!volumeMenu.contains(e.target)) {
+                    volumeMenu.style.display = 'none';
+                }
+            });
+        }
+        
+        // End turn
+        async function endTurn() {
+            const client = window.supabaseAuth.initSupabase();
+            
+            const activePlayers = gameState.players.filter(p => !p.eliminated);
+            const currentTurn = gameState.current_turn;
+            const nextTurn = currentTurn + 1;
+            
+            // Check if round is complete
+            if (nextTurn >= activePlayers.length) {
+                // Move to voting phase
+                await client
+                    .from('game_states')
+                    .update({ 
+                        phase: 'voting',
+                        votes: {}
+                    })
+                    .eq('id', gameState.id);
+            } else {
+                // Next player's turn
+                await client
+                    .from('game_states')
+                    .update({ 
+                        current_turn: nextTurn,
+                        turn_started_at: new Date().toISOString()
+                    })
+                    .eq('id', gameState.id);
+            }
+        }
+        
+        // Cast vote
+        async function castVote(playerId) {
+            const client = window.supabaseAuth.initSupabase();
+            
+            const votes = { ...gameState.votes };
+            votes[currentUser.id] = playerId;
+            
+            await client
+                .from('game_states')
+                .update({ votes: votes })
+                .eq('id', gameState.id);
+            
+            // Check if all players voted
+            const activePlayers = gameState.players.filter(p => !p.eliminated);
+            if (Object.keys(votes).length >= activePlayers.length) {
+                await processVotes();
+            }
+        }
+        
+        // Process votes
+        async function processVotes() {
+            const client = window.supabaseAuth.initSupabase();
+            
+            // Count votes
+            const voteCount = {};
+            Object.values(gameState.votes).forEach(votedId => {
+                if (votedId) {
+                    voteCount[votedId] = (voteCount[votedId] || 0) + 1;
+                }
+            });
+            
+            // Find player with most votes
+            let maxVotes = 0;
+            let eliminatedId = null;
+            Object.entries(voteCount).forEach(([playerId, count]) => {
+                if (count > maxVotes) {
+                    maxVotes = count;
+                    eliminatedId = playerId;
+                }
+            });
+            
+            // Eliminate player
+            if (eliminatedId) {
+                const updatedPlayers = gameState.players.map(p => {
+                    if (p.id === eliminatedId) {
+                        return { ...p, eliminated: true };
+                    }
+                    return p;
+                });
+                
+                // Start next round
+                await client
+                    .from('game_states')
+                    .update({ 
+                        players: updatedPlayers,
+                        current_round: gameState.current_round + 1,
+                        current_turn: 0,
+                        phase: 'speaking',
+                        turn_started_at: new Date().toISOString(),
+                        votes: {}
+                    })
+                    .eq('id', gameState.id);
+            }
+        }
+        
+        // Check game over
+        function checkGameOver() {
+            const activePlayers = gameState.players.filter(p => !p.eliminated);
+            if (activePlayers.length <= gameState.bunker_slots) {
+                showGameOver(activePlayers);
+            }
+        }
+        
+        // Show game over
+        function showGameOver(survivors) {
+            const modal = document.getElementById('gameover-modal');
+            const list = document.getElementById('survivors-list');
+            
+            list.innerHTML = survivors.map(p => `
+                <div class="survivor-item">${p.name || 'Гравець'}</div>
+            `).join('');
+            
+            modal.style.display = 'flex';
+        }
+        
+        // Setup realtime updates
+        function setupRealtimeUpdates() {
+            const client = window.supabaseAuth.initSupabase();
+            
+            client
+                .channel('game-' + roomId)
+                .on('postgres_changes', { 
+                    event: '*', 
+                    schema: 'public', 
+                    table: 'game_states',
+                    filter: `room_id=eq.${roomId}`
+                }, (payload) => {
+                    gameState = payload.new;
+                    updateUI();
+                })
+                .subscribe();
+            
+            // Timer update interval
+            setInterval(updateTimer, 1000);
+        }
+        
+        // Event listeners
+        document.getElementById('end-turn-btn').addEventListener('click', endTurn);
+        
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                updateUI();
+            }
+        });
+        
+        document.getElementById('next-page').addEventListener('click', () => {
+            const activePlayers = gameState.players.filter(p => !p.eliminated);
+            const totalPages = Math.ceil(activePlayers.length / playersPerPage);
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                updateUI();
+            }
+        });
+        
+        document.getElementById('skip-vote-btn').addEventListener('click', () => castVote(null));
+        
+        document.getElementById('gameover-btn').addEventListener('click', () => {
+            // Clear user session when game ends
+            if (typeof window.require !== 'undefined') {
+                const { ipcRenderer } = window.require('electron');
+                ipcRenderer.send('clear-user-session');
+            }
+            window.location.href = 'rooms.html';
+        });
+        
+        document.getElementById('results-continue').addEventListener('click', () => {
+            document.getElementById('results-modal').style.display = 'none';
+        });
+        
+        // Leave room and cleanup on page unload
+        async function leaveRoomAndCleanup() {
+            if (!currentUser || !roomId) return;
+
+            const client = window.supabaseAuth.initSupabase();
+
+            try {
+                // Get current room data
+                const { data: room } = await client
+                    .from('rooms')
+                    .select('players, host_id')
+                    .eq('id', roomId)
+                    .single();
+
+                if (room && room.players) {
+                    const players = room.players.filter(p => p.id !== currentUser.id);
+
+                    if (players.length === 0) {
+                        // Delete room and game state if empty
+                        await client.from('game_states').delete().eq('room_id', roomId);
+                        await client.from('rooms').delete().eq('id', roomId);
+                        console.log('Room deleted (0 players)');
+                    } else {
+                        // Update players list
+                        const updates = { players: players };
+
+                        // Transfer host if leaving player was host
+                        if (room.host_id === currentUser.id) {
+                            updates.host_id = players[0].id;
+                        }
+
+                        await client.from('rooms').update(updates).eq('id', roomId);
+                    }
+                }
+
+                // Clear user session
+                if (typeof window.require !== 'undefined') {
+                    const { ipcRenderer } = window.require('electron');
+                    ipcRenderer.send('clear-user-session');
+                }
+
+                // Close WebRTC connections
+                if (webrtcManager) {
+                    webrtcManager.closeAllConnections();
+                }
+
+                // Stop camera/mic via MediaManager
+                media.stop();
+            } catch (err) {
+                console.error('Leave room error:', err);
+            }
+        }
+        
+        // Cleanup on page unload (close/reload/navigate away)
+        let isUnloading = false;
+        window.addEventListener('beforeunload', (event) => {
+            if (currentUser && roomId && !isUnloading) {
+                isUnloading = true;
+                leaveRoomAndCleanup();
+            }
+        });
+        
+        init();
+    </script>
+</body>
+</html>
