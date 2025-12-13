@@ -1,8 +1,5 @@
 {
-  "latestVersion": "1.0.2",
-  "downloadUrl": "https://github.com/deforxdev/Shelter/releases/download/v1.0.2/bunker.7z",
-  "changelog": [
-    "• Фікс лаунчера",
-    "• Фікс камери"
-  ]
+  "version": "1.0.2",
+  "url": "https://github.com/deforxdev/Shelter/releases/download/v1.0.2/bunker.7z",
+  "exe": "Game.exe"
 }
