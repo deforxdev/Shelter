@@ -1,92 +1,4 @@
 
-/* Profile card */
-.profile-card {
-    position: absolute;
-    width: 201px;
-    height: 307px;
-    right: 20px;
-    top: -130px;
-    overflow: visible;
-}
-
-/* Group 22 */
-.group-22 {
-    position: absolute;
-    width: 201px;
-    height: 307px;
-    left: 0px;
-    top: 0px;
-}
-
-/* Group 21 */
-.group-21 {
-    position: absolute;
-    width: 201px;
-    height: 307px;
-    left: 0px;
-    top: 0px;
-    filter: drop-shadow(4px 4px 11.3px rgba(0, 0, 0, 0.67));
-}
-
-/* Бейдж1 1 */
-.badge-bottom {
-    position: absolute;
-    width: 201px;
-    height: 279px;
-    left: 0px;
-        top: 18px;
-    z-index: 1;
-    object-fit: contain;
-}
-
-/* Бейдж2 1 */
-.badge-t    op {
-    position: absolute;
-    width: 201px;
-    height: 307px;
-    left: 0px;
-    top: 0px;
-    z-index: 2;
-    object-fit: contain;
-}
-
-/* icon/log-out */
-.profile-logout {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    left: 28px;
-    top: 146px;
-    z-index: 3;
-}
-
-/* icon/cog */
-.settings-icon {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    left: 149px;
-    top: 146px;
-    z-index: 3;
-}
-
-/* Djullaii */
-.profile-name {
-    position: absolute;
-    width: 136px;
-    height: 19px;
-    left: 32px;
-    top: 148px;
-    font-family: 'Kelly Slab';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: center;
-    letter-spacing: 0.04em;
-    color: #000;
-    z-index: 3;
-}
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -164,7 +76,8 @@ html, body {
 .header-icon {
     width: 39px;
     height: 39px;
-    filter: drop-shadow(1px 1px 3.7px rgba(0, 0, 0, 0.85)) brightness(0) invert(1);
+    color: #FFFFFF;
+    filter: brightness(0) invert(1);
 }
 
 .header-title {
@@ -226,6 +139,16 @@ html, body {
     z-index: 101;
 }
 
+.profile-badge-bottom {
+    position: absolute;
+    width: 201px;
+    height: 279px;
+    left: 0px;
+    top: 18px;
+    z-index: 1;
+    object-fit: contain;
+}
+
 .profile-badge-top {
     position: absolute;
     width: 201px;
@@ -238,11 +161,13 @@ html, body {
 .profile-badge-bottom {
     position: absolute;
     width: 201px;
-    height: 285px;
+    height: 279px;
     left: 0px;
-    top: 20px;
+    top: 18px;
     z-index: 1;
     object-fit: contain;
+    pointer-events: auto;
+    opacity: 1;
     /* Вирівнюємо бейджі */
 }
 .profile-logout {
@@ -842,5 +767,99 @@ html, body {
 
     .profile-card {
         right: 30px;
+    }
+    
+    .badge-container {
+        position: relative;
+        width: 201px;
+        height: 307px;
+        cursor: pointer;
+    }
+    
+    .badge-dropdown {
+        position: absolute;
+        top: 307px;
+        left: 0;
+        width: 201px;
+        height: 250px;
+        background: url('Assets/Бейдж1 1.png') #3D2E14;
+        background-size: cover;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        z-index: 1000;
+        overflow: hidden;
+        border: 2px solid green;
+    }
+    
+    .badge-dropdown {
+        position: absolute;
+        top: 307px;
+        left: 0;
+        width: 201px;
+        height: 250px;
+        background: url('Assets/Бейдж1 1.png') #3D2E14;
+        background-size: cover;
+        transform: translateY(0);
+        opacity: 1;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        z-index: 1000;
+        overflow: hidden;
+        left: 56px;
+        top: 20px;
+        border: 3px solid #3D2E14;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .games-played {
+        position: absolute;
+        width: 136px;
+        height: 34px;
+        left: 32px;
+        top: 120px;
+        font-family: 'Kelly Slab';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        letter-spacing: 0.04em;
+        color: #324657;
+    }
+    
+    .survival-rate {
+        position: absolute;
+        width: 136px;
+        height: 17px;
+        left: 32px;
+        top: 154px;
+        font-family: 'Kelly Slab';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        letter-spacing: 0.04em;
+        color: #4D3F28;
+    }
+    
+    #change-avatar-btn {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #3D2E14;
+        color: #FFFFFF;
+        border: none;
+        padding: 8px 16px;
+        font-family: 'Kelly Slab';
+        font-size: 12px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    
+    #change-avatar-btn:hover {
+        background: #5D4E34;
     }
 }

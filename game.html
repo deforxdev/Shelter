@@ -311,26 +311,6 @@
 
         // Initialize game
         async function init() {
-                    // Показувати кнопку "Відкрити показник" при наведенні на рядок
-                    document.querySelectorAll('.stat-row').forEach(row => {
-                        row.addEventListener('mouseenter', () => {
-                            const btn = row.querySelector('.reveal-indicator-btn');
-                            if (btn) btn.style.display = 'inline-block';
-                        });
-                        row.addEventListener('mouseleave', () => {
-                            const btn = row.querySelector('.reveal-indicator-btn');
-                            if (btn) btn.style.display = 'none';
-                        });
-                    });
-                    // Дія при натисканні на кнопку показника
-                    document.querySelectorAll('.reveal-indicator-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            const indicator = btn.getAttribute('data-indicator');
-                            const value = document.getElementById('stat-' + indicator)?.textContent || '';
-                            alert('Показник: ' + value);
-                            e.stopPropagation();
-                        });
-                    });
             currentUser = await window.supabaseAuth.getCurrentUser();
             if (!currentUser) {
                 window.location.href = 'index.html';
@@ -348,9 +328,12 @@
             // Set user session for cleanup
             if (typeof window.require !== 'undefined') {
                 const { ipcRenderer } = window.require('electron');
+                const client = window.supabaseAuth.initSupabase();
+                const { data: { session } } = await client.auth.getSession();
                 ipcRenderer.send('set-user-session', {
                     userId: currentUser.id,
-                    roomId: roomId
+                    roomId: roomId,
+                    session: session
                 });
             }
 
@@ -492,15 +475,15 @@
         function renderPlayersGrid(players) {
             const grid = document.getElementById('players-grid');
             grid.innerHTML = '';
-            
-            const totalPages = Math.ceil(players.length / playersPerPage);
+
+            const totalPages = Math.max(1, Math.ceil(players.length / playersPerPage));
             const startIndex = currentPage * playersPerPage;
             const endIndex = Math.min(startIndex + playersPerPage, players.length);
             const pagePlayers = players.slice(startIndex, endIndex);
-            
+
             // Check if current user already voted
             const myVote = gameState.votes ? gameState.votes[currentUser.id] : null;
-            
+
             pagePlayers.forEach((player, index) => {
                 const isCurrentUser = player.id === currentUser.id;
                 const isSpeaking = getCurrentSpeaker()?.id === player.id;
@@ -524,6 +507,19 @@
                 
                 grid.appendChild(slot);
             });
+            
+            // Динамічно оновлюємо інфо про сторінки
+            const pageInfo = document.getElementById('page-info');
+            if (pageInfo) {
+                pageInfo.textContent = `${totalPages === 1 ? 1 : currentPage + 1} / ${totalPages}`;
+            }
+            // Стрілочки завжди видимі, але неактивні якщо не можна гортати
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            prevBtn.disabled = (currentPage === 0 || totalPages === 1);
+            nextBtn.disabled = (currentPage === totalPages - 1 || totalPages === 1);
+            prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+            nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
             
             // Stats pagination
             document.getElementById('stats-prev').addEventListener('click', () => {
@@ -664,25 +660,106 @@
         // Update stats panel
         function updateStatsPanel() {
             const myPlayer = gameState.players.find(p => p.id === currentUser.id);
+            const opened = gameState.opened_indicators || {};
+            const allOpened = new Set();
+            Object.values(opened).forEach(arr => (arr || []).forEach(key => allOpened.add(key)));
+            const myOpened = opened[currentUser.id] || [];
             if (myPlayer && myPlayer.stats) {
                 const stats = myPlayer.stats;
-                
                 // Сторінка 1 - основні характеристики
-                document.getElementById('stat-gender').textContent = stats.gender || '-';
-                document.getElementById('stat-age').textContent = stats.age || '-';
-                document.getElementById('stat-profession').textContent = stats.profession || '-';
-                document.getElementById('stat-character').textContent = stats.character || '-';
-                document.getElementById('stat-health').textContent = stats.health || '-';
-                document.getElementById('stat-phobia').textContent = stats.phobia || '-';
-                document.getElementById('stat-skill').textContent = stats.skill || '-';
-                document.getElementById('stat-hobby').textContent = stats.hobby || '-';
-                
+                [
+                    ['gender', stats.gender],
+                    ['age', stats.age],
+                    ['profession', stats.profession],
+                    ['character', stats.character],
+                    ['health', stats.health],
+                    ['phobia', stats.phobia],
+                    ['skill', stats.skill],
+                    ['hobby', stats.hobby],
+                ].forEach(([key, value]) => {
+                    const el = document.getElementById('stat-' + key);
+                    if (el) {
+                        el.textContent = value || '-';
+                        el.style.fontWeight = myOpened.includes(key) ? 'bold' : 'normal';
+                    }
+                    const btn = el?.parentElement.querySelector('.reveal-indicator-btn');
+                    if (btn) {
+                        // Кнопка зникає, якщо показник відкритий кимось
+                        if (allOpened.has(key)) {
+                            btn.style.display = 'none';
+                        } else if (myOpened.length === 0 && getCurrentSpeaker()?.id === currentUser.id) {
+                            btn.style.display = 'inline-block';
+                        } else {
+                            btn.style.display = 'none';
+                        }
+                    }
+                });
                 // Сторінка 2 - додаткові характеристики
-                document.getElementById('stat-fact1').textContent = stats.fact1 || '-';
-                document.getElementById('stat-fact2').textContent = stats.fact2 || '-';
-                document.getElementById('stat-baggage').textContent = stats.baggage || '-';
-                document.getElementById('stat-action').textContent = stats.actionCard || '-';
+                [
+                    ['fact1', stats.fact1],
+                    ['fact2', stats.fact2],
+                    ['baggage', stats.baggage],
+                    ['action', stats.actionCard],
+                ].forEach(([key, value]) => {
+                    const el = document.getElementById('stat-' + key);
+                    if (el) {
+                        el.textContent = value || '-';
+                        el.style.fontWeight = myOpened.includes(key) ? 'bold' : 'normal';
+                    }
+                    const btn = el?.parentElement.querySelector('.reveal-indicator-btn');
+                    if (btn) {
+                        if (allOpened.has(key)) {
+                            btn.style.display = 'none';
+                        } else if (myOpened.length === 0 && getCurrentSpeaker()?.id === currentUser.id) {
+                            btn.style.display = 'inline-block';
+                        } else {
+                            btn.style.display = 'none';
+                        }
+                    }
+                });
             }
+            // Оновлюємо hover-логіку після рендера
+            setupIndicatorHoverHandlers();
+        }
+        
+        // === ГЛОБАЛЬНО ===
+        function setupIndicatorHoverHandlers() {
+            document.querySelectorAll('.stat-row').forEach(row => {
+                const btn = row.querySelector('.reveal-indicator-btn');
+                if (!btn) return;
+                row.addEventListener('mouseenter', () => {
+                    const opened = gameState?.opened_indicators || {};
+                    const allOpened = new Set();
+                    Object.values(opened).forEach(arr => (arr || []).forEach(key => allOpened.add(key)));
+                    const indicator = btn.getAttribute('data-indicator');
+                    if (!allOpened.has(indicator)) btn.style.display = 'inline-block';
+                });
+                row.addEventListener('mouseleave', () => {
+                    btn.style.display = 'none';
+                });
+            });
+        }
+        
+        // Додаємо обробник для reveal-indicator-btn у init()
+        const oldInit = init;
+        init = async function() {
+            await oldInit.apply(this, arguments);
+            // Не додаємо хендлери наведення тут, бо вони тепер у updateStatsPanel
+            document.querySelectorAll('.reveal-indicator-btn').forEach(btn => {
+                btn.onclick = async (e) => {
+                    const indicator = btn.getAttribute('data-indicator');
+                    const opened = gameState.opened_indicators || {};
+                    const myOpened = opened[currentUser.id] || [];
+                    if (myOpened.length > 0 || myOpened.includes(indicator)) return;
+                    const client = window.supabaseAuth.initSupabase();
+                    const newOpened = { ...opened };
+                    newOpened[currentUser.id] = [...(myOpened || []), indicator];
+                    await client.from('game_states').update({ opened_indicators: newOpened }).eq('room_id', roomId);
+                    gameState.opened_indicators = newOpened;
+                    updateStatsPanel();
+                    e.stopPropagation();
+                };
+            });
         }
         
         // Toggle stats page
@@ -1070,14 +1147,7 @@
             }
         }
         
-        // Cleanup on page unload (close/reload/navigate away)
-        let isUnloading = false;
-        window.addEventListener('beforeunload', (event) => {
-            if (currentUser && roomId && !isUnloading) {
-                isUnloading = true;
-                leaveRoomAndCleanup();
-            }
-        });
+        // Cleanup on page unload is handled by main process on app close
         
         init();
     </script>

@@ -161,9 +161,12 @@
             // Set user session for cleanup
             if (typeof window.require !== 'undefined') {
                 const { ipcRenderer } = window.require('electron');
+                const client = window.supabaseAuth.initSupabase();
+                const { data: { session } } = await client.auth.getSession();
                 ipcRenderer.send('set-user-session', {
                     userId: currentUser.id,
-                    roomId: roomId
+                    roomId: roomId,
+                    session: session
                 });
             }
 
@@ -476,28 +479,7 @@
             }
         });
         
-        // Cleanup on page unload (закриття/перезавантаження)
-        let isUnloading = false;
-        window.addEventListener('beforeunload', (event) => {
-            if (!isUnloading) {
-                isUnloading = true;
-                // Викликаємо leaveRoom синхронно через navigator.sendBeacon
-                if (typeof leaveRoom === 'function') {
-                    // Якщо є можливість, повідомляємо сервер через fetch або sendBeacon
-                    if (window.navigator && window.navigator.sendBeacon) {
-                        const client = window.supabaseAuth.initSupabase();
-                        // Позначаємо користувача як неактивного (або видаляємо)
-                        // Тут можна зробити запит до вашого бекенду через sendBeacon
-                        // або залишити як є, якщо бекенд підтримує sendBeacon
-                        // (Supabase fetch не підтримує sendBeacon напряму)
-                        // Альтернатива: залишити як async, але браузер може не дочекатися
-                        leaveRoom();
-                    } else {
-                        leaveRoom();
-                    }
-                }
-            }
-        });
+        // Cleanup on page unload is handled by main process on app close
         
         init();
     </script>

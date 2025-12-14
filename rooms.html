@@ -18,7 +18,7 @@
             
             <!-- Logo -->
             <div class="header-logo">
-                <img src="Assets/Component 1.png" alt="Shelter" class="header-icon">
+                <img src="Assets/Component 1 (1).svg" alt="Shelter" class="header-icon">
                 <span class="header-title">Shelter</span>
             </div>
             
@@ -244,9 +244,9 @@
                 return;
             }
             
-            document.querySelector('.profile-name').textContent = 
+            document.querySelector('.profile-name').textContent =
                 currentUser.user_metadata?.name || currentUser.email.split('@')[0];
-            
+
             await loadRooms();
             setupRealtimeUpdates();
         }
@@ -406,7 +406,19 @@
                 alert('Помилка при приєднанні до кімнати');
                 return;
             }
-            
+
+            // Set user session for cleanup on app close
+            if (typeof window.require !== 'undefined') {
+                const { ipcRenderer } = window.require('electron');
+                const client = window.supabaseAuth.initSupabase();
+                const { data: { session } } = await client.auth.getSession();
+                ipcRenderer.send('set-user-session', {
+                    userId: currentUser.id,
+                    roomId: roomId,
+                    session: session
+                });
+            }
+
             window.location.href = `lobby.html?id=${roomId}`;
         }
         
@@ -531,7 +543,8 @@
             await window.supabaseAuth.signOut();
             window.location.href = 'index.html';
         });
-        
+
+
         init();
     </script>
 </body>

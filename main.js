@@ -37,6 +37,21 @@ const customStorage = {
 
 const supabase = createClient(supabaseUrl, supabaseKey, { auth: { storage: customStorage } });
 
+// Authenticate with stored session for cleanup operations
+async function authenticateSupabase() {
+  try {
+    const sessionKey = `sb-${supabaseUrl.split('https://')[1].split('.')[0]}-auth-token`;
+    const sessionData = customStorage.getItem(sessionKey);
+    if (sessionData) {
+      const session = JSON.parse(sessionData);
+      await supabase.auth.setSession(session);
+      console.log('Supabase authenticated for cleanup');
+    }
+  } catch (err) {
+    console.error('Failed to authenticate Supabase:', err);
+  }
+}
+
 // Track current user session for cleanup
 let currentUserSession = null;
 
@@ -49,8 +64,12 @@ ipcMain.on('reload-window', () => {
 
 // Track user session for cleanup
 ipcMain.on('set-user-session', (event, sessionData) => {
-  currentUserSession = sessionData;
-  console.log('User session set:', sessionData);
+   currentUserSession = sessionData;
+   console.log('User session set:', sessionData);
+   if (sessionData.session) {
+       const sessionKey = `sb-${supabaseUrl.split('https://')[1].split('.')[0]}-auth-token`;
+       customStorage.setItem(sessionKey, JSON.stringify(sessionData.session));
+   }
 });
 
 // Clear user session
@@ -175,12 +194,13 @@ async function cleanupEmptyRooms() {
 app.whenReady().then(createWindow);
 
 app.on('before-quit', async (event) => {
-  event.preventDefault();
-  console.log('App closing, cleaning up...');
-  await cleanupCurrentUser();
-  await cleanupEmptyRooms();
-  console.log('Cleanup complete, exiting...');
-  app.exit(0);
+   event.preventDefault();
+   console.log('App closing, cleaning up...');
+   await authenticateSupabase();
+   await cleanupCurrentUser();
+   await cleanupEmptyRooms();
+   console.log('Cleanup complete, exiting...');
+   app.exit(0);
 });
 
 app.on('window-all-closed', () => {

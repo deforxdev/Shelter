@@ -175,6 +175,9 @@ html, body {
     background: transparent;
     overflow: hidden;
     margin-top: -25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .player-avatar video {
@@ -923,9 +926,24 @@ html, body {
     }
 
     .player-avatar {
-        width: 60%;
-        height: 60%;
-        margin-top: -20%;
+        width: 100%;
+        height: 100%;
+        border-radius: 3px;
+        background: #222; /* fallback фон */
+        overflow: hidden;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .player-avatar video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 3px;
+        transform: scaleX(-1);
+        background: #222;
     }
 
     .player-name {
@@ -1060,8 +1078,24 @@ html, body {
     }
 
     .player-avatar {
-        width: 65%;
-        height: 65%;
+        width: 100%;
+        height: 100%;
+        border-radius: 3px;
+        background: #222; /* fallback фон */
+        overflow: hidden;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .player-avatar video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 3px;
+        transform: scaleX(-1);
+        background: #222;
     }
 
     .stats-panel {

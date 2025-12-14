@@ -41,10 +41,10 @@ DROP POLICY IF EXISTS "Authenticated users can update rooms" ON rooms;
 CREATE POLICY "Authenticated users can update rooms" ON rooms
     FOR UPDATE USING (auth.uid() IS NOT NULL);
 
--- Хост може видаляти свою кімнату
+-- Хост може видаляти свою кімнату, або будь-хто може видаляти порожні кімнати
 DROP POLICY IF EXISTS "Host can delete room" ON rooms;
 CREATE POLICY "Host can delete room" ON rooms
-    FOR DELETE USING (auth.uid() = host_id);
+    FOR DELETE USING (auth.uid() = host_id OR jsonb_array_length(players) = 0);
 
 -- Крок 4: Включити realtime для таблиці (пропустити якщо вже додано)
 DO $$
