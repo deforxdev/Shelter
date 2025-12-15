@@ -1,5 +1,11 @@
 {
-  "version": "1.0.2",
-  "url": "https://github.com/deforxdev/Shelter/releases/download/v1.0.2/bunker.7z",
-  "exe": "Game.exe"
+  "latestVersion": "1.0.3",
+  "downloadUrl": "https://github.com/deforxdev/Shelter/releases/download/v1.0.3/bunker.7z",
+  "changelog": [
+    "• Додоно картка профіля",
+    "• Фікс камери(не точно)",
+    "• Оптимізування кнопок"
+  ],
+  "size": "124 MB",
+  "releaseDate": "15.12.2025"
 }
