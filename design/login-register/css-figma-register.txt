@@ -1,0 +1,601 @@
+/* Registration */
+
+position: relative;
+width: 1920px;
+height: 1080px;
+
+background: #FFFFFF;
+
+
+/* фон 3 */
+
+position: absolute;
+width: 1920px;
+height: 1080px;
+left: 0px;
+top: 0px;
+
+background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(фон.png);
+
+
+/* BY lines */
+
+position: absolute;
+width: 1988.66px;
+height: 92.14px;
+left: -33px;
+top: 489px;
+
+
+
+/* left_lines 1 */
+
+position: absolute;
+width: 1001px;
+height: 68px;
+left: -33px;
+top: 502px;
+
+background: url(left_lines.png);
+transform: rotate(-0.64deg);
+
+
+/* right_lines 1 */
+
+position: absolute;
+width: 935px;
+height: 72px;
+left: 1019.91px;
+top: 489px;
+
+background: url(right_lines.png);
+transform: rotate(-0.64deg);
+
+
+/* paper big2 1 */
+
+position: absolute;
+width: 650px;
+height: 1058px;
+left: 626px;
+top: 1px;
+
+background: url(paper big2.png);
+
+
+/* Component 1 */
+
+position: absolute;
+width: 31px;
+height: 31px;
+left: 695px;
+top: 137px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: rgba(0, 0, 0, 0.58);
+
+
+/* Vector */
+
+position: absolute;
+left: 40.43%;
+right: 40.43%;
+top: 39.62%;
+bottom: 41.24%;
+
+background: rgba(0, 0, 0, 0.58);
+
+
+/* Vector */
+
+position: absolute;
+left: 46.49%;
+right: 46.48%;
+top: 52.11%;
+bottom: 2.27%;
+
+background: rgba(0, 0, 0, 0.58);
+
+
+/* Vector */
+
+position: absolute;
+left: 6.97%;
+right: 86%;
+top: 23.2%;
+bottom: 31.17%;
+
+background: rgba(0, 0, 0, 0.58);
+transform: rotate(-60deg);
+
+
+/* Vector */
+
+position: absolute;
+left: 50%;
+right: 42.96%;
+top: 23.2%;
+bottom: 31.17%;
+
+background: rgba(0, 0, 0, 0.58);
+transform: rotate(-120deg);
+
+
+/* Shelter */
+
+position: absolute;
+width: 97px;
+height: 36px;
+left: 729px;
+top: 139px;
+
+font-family: 'Kenia';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 36px;
+/* identical to box height */
+
+color: rgba(0, 0, 0, 0.58);
+
+
+
+/* Register Blank */
+
+position: absolute;
+visibility: hidden;
+width: 248px;
+height: 44px;
+left: 836px;
+top: 178px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+/* identical to box height */
+text-align: center;
+letter-spacing: 0.04em;
+text-decoration-line: underline;
+
+color: #000000;
+
+
+
+/* Potential survivor/shelter member New competitor */
+
+position: absolute;
+width: 329px;
+height: 48px;
+left: 796px;
+top: 222px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 24px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #54524D;
+
+
+
+/* Back. */
+
+position: absolute;
+width: 86px;
+height: 44px;
+left: 39px;
+top: 8px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+/* identical to box height */
+letter-spacing: 0.04em;
+
+color: #C7C4B8;
+
+
+
+/* Group 29 */
+
+position: absolute;
+width: 513px;
+height: 84px;
+left: 704px;
+top: 371px;
+
+
+
+/* Email. */
+
+position: absolute;
+width: 71px;
+height: 29px;
+left: 704px;
+top: 371px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+letter-spacing: 0.04em;
+
+color: #000000;
+
+
+
+/* Group 28 */
+
+position: absolute;
+width: 513px;
+height: 49px;
+left: 704px;
+top: 406px;
+
+
+
+/* Rectangle 1810 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 513px;
+height: 49px;
+left: 704px;
+top: 406px;
+
+border: 2px solid #373026;
+
+
+/* Group 27 */
+
+position: absolute;
+width: 513px;
+height: 84px;
+left: 704px;
+top: 277px;
+
+
+
+/* Name. */
+
+position: absolute;
+width: 69px;
+height: 29px;
+left: 704px;
+top: 277px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+letter-spacing: 0.04em;
+
+color: #000000;
+
+
+
+/* Rectangle 1814 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 513px;
+height: 49px;
+left: 704px;
+top: 312px;
+
+border: 2px solid #373026;
+
+
+/* Group 30 */
+
+position: absolute;
+width: 513px;
+height: 84px;
+left: 704px;
+top: 465px;
+
+
+
+/* Password. */
+
+position: absolute;
+width: 112px;
+height: 29px;
+left: 704px;
+top: 465px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+letter-spacing: 0.04em;
+
+color: #000000;
+
+
+
+/* Rectangle 1811 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 513px;
+height: 49px;
+left: 704px;
+top: 500px;
+
+border: 2px solid #373026;
+
+
+/* Group 31 */
+
+position: absolute;
+width: 513px;
+height: 84px;
+left: 704px;
+top: 559px;
+
+
+
+/* Confirm password. */
+
+position: absolute;
+width: 210px;
+height: 29px;
+left: 704px;
+top: 559px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+letter-spacing: 0.04em;
+
+color: #000000;
+
+
+
+/* Rectangle 1812 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 513px;
+height: 49px;
+left: 704px;
+top: 594px;
+
+border: 2px solid #373026;
+
+
+/* *Already have an account? */
+
+position: absolute;
+width: 304px;
+height: 29px;
+left: 692px;
+top: 867px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+letter-spacing: 0.04em;
+
+color: #000000;
+
+
+
+/* Log in */
+
+position: absolute;
+width: 71px;
+height: 29px;
+left: 1002px;
+top: 867px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+letter-spacing: 0.04em;
+text-decoration-line: underline;
+
+color: #000000;
+
+
+
+/* Group 32 */
+
+position: absolute;
+width: 173px;
+height: 49px;
+left: 874px;
+top: 758px;
+
+
+
+/* Rectangle 1815 */
+
+position: absolute;
+width: 173px;
+height: 49px;
+left: 874px;
+top: 758px;
+
+background: #261E1A;
+
+
+/* Sign up */
+
+position: absolute;
+width: 87px;
+height: 29px;
+left: 917px;
+top: 768px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #C7C4B8;
+
+
+
+/* icon/chevron-left */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 0px;
+top: 7px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 25%;
+bottom: 25%;
+
+border: 2px solid #C7C4B8;
+
+
+/* scootch 7 */
+
+position: absolute;
+width: 180px;
+height: 95px;
+left: 1201.24px;
+top: 99.98px;
+
+/* скотч */
+background: url(scootch.png);
+transform: matrix(-0.94, 0.35, 0.35, 0.94, 0, 0);
+
+
+/* scootch 4 */
+
+position: absolute;
+width: 180px;
+height: 95px;
+left: 493px;
+top: 157px;
+
+/* скотч */
+background: url(scootch.png);
+transform: rotate(15.53deg);
+
+
+/* Header */
+
+position: absolute;
+width: 1921px;
+height: 59px;
+left: -1px;
+top: 1024px;
+
+opacity: 0.77;
+
+
+/* Bar */
+
+position: absolute;
+width: 1920px;
+height: 57px;
+left: -1px;
+top: 1026px;
+
+background: url(Группа 1.png);
+
+
+/* Группа 1 1 */
+
+position: absolute;
+width: 1920px;
+height: 56px;
+left: 0px;
+top: 1026px;
+
+background: url(Группа 1.png);
+box-shadow: 0px 4px 32.6px 11px rgba(0, 0, 0, 0.25);
+
+
+/* Rectangle 1804 */
+
+position: absolute;
+width: 308px;
+height: 58px;
+left: -1px;
+top: 1024px;
+
+
+
+/* pen 1 */
+
+position: absolute;
+width: 111px;
+height: 658px;
+left: 1292px;
+top: 238px;
+
+background: url(pen.png);
+
+
+/* Register Blank */
+
+position: absolute;
+width: 248px;
+height: 44px;
+left: 827px;
+top: 175px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+/* identical to box height */
+text-align: center;
+letter-spacing: 0.04em;
+text-decoration-line: underline;
+
+color: #000000;
+
