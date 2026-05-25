@@ -1,0 +1,1432 @@
+/* rooms */
+
+position: relative;
+width: 1920px;
+height: 1020px;
+
+background: #FFFFFF;
+
+
+/* фон 4 */
+
+position: absolute;
+width: 1920px;
+height: 1080px;
+left: 0px;
+top: 34px;
+
+background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(фон.png);
+
+
+/* door1 1 */
+
+position: absolute;
+width: 691px;
+height: 1080px;
+left: 62px;
+top: 16px;
+
+background: url(door1.png);
+
+
+/* фон 3 */
+
+position: absolute;
+width: 1920px;
+height: 140px;
+left: 0px;
+top: -106px;
+
+background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(фон.png);
+
+
+/* Rooms */
+
+position: absolute;
+width: 1105px;
+height: 725px;
+left: 692px;
+top: 94px;
+
+
+
+/* Join the room */
+
+position: absolute;
+width: 666px;
+height: 78px;
+left: calc(50% - 666px/2 + 302px);
+top: calc(50% - 78px/2 - 377px);
+
+font-family: 'Impact';
+font-style: normal;
+font-weight: 400;
+font-size: 64px;
+line-height: 78px;
+/* identical to box height */
+text-align: center;
+
+color: #807D73;
+
+
+
+/* paper 1 */
+
+position: absolute;
+width: 1105px;
+height: 167px;
+left: 692px;
+top: 269px;
+
+background: url(paper.png);
+
+
+/* paper 2 */
+
+position: absolute;
+width: 1105px;
+height: 166px;
+left: 692px;
+top: 462px;
+
+background: url(paper.png);
+
+
+/* paper 3 */
+
+position: absolute;
+width: 1105px;
+height: 177px;
+left: 692px;
+top: 642px;
+
+background: url(paper.png);
+
+
+/* Room name: */
+
+position: absolute;
+width: 259px;
+height: 41px;
+left: 807px;
+top: 489px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+
+color: #373026;
+
+
+
+/* Room name: */
+
+position: absolute;
+width: 259px;
+height: 41px;
+left: 799px;
+top: 677px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+
+color: #373026;
+
+
+
+/* Rectangle 1808 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 445px;
+height: 49px;
+left: 799px;
+top: 728px;
+
+border: 2px solid #373026;
+
+
+/* Players in the room: */
+
+position: absolute;
+width: 347px;
+height: 41px;
+left: 807px;
+top: 730px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+
+color: #373026;
+
+
+
+/* Rectangle 1809 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 445px;
+height: 49px;
+left: 807px;
+top: 539px;
+
+border: 2px solid #373026;
+
+
+/* Players in the room: */
+
+position: absolute;
+width: 347px;
+height: 41px;
+left: 815px;
+top: 541px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+
+color: #373026;
+
+
+
+/* Rectangle 1810 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 445px;
+height: 49px;
+left: 807px;
+top: 348px;
+
+border: 2px solid #373026;
+
+
+/* Players in the room: */
+
+position: absolute;
+width: 347px;
+height: 41px;
+left: 815px;
+top: 350px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+
+color: #373026;
+
+
+
+/* Waiting to start. */
+
+position: absolute;
+width: 280px;
+height: 41px;
+left: 1409px;
+top: 296px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+text-decoration-line: underline;
+
+color: #9C6F25;
+
+
+
+/* Waiting to start. */
+
+position: absolute;
+width: 280px;
+height: 41px;
+left: 1409px;
+top: 489px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+text-decoration-line: underline;
+
+color: #9C6F25;
+
+
+
+/* Game started. */
+
+position: absolute;
+width: 280px;
+height: 41px;
+left: 1404px;
+top: 677px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+text-align: right;
+letter-spacing: 0.04em;
+text-decoration-line: underline;
+
+color: #807D73;
+
+
+
+/* Room name: */
+
+position: absolute;
+width: 259px;
+height: 41px;
+left: 807px;
+top: 296px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+
+color: #373026;
+
+
+
+/* Mortis 12 */
+
+position: absolute;
+width: 259px;
+height: 41px;
+left: 1009px;
+top: 296px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+text-decoration-line: underline;
+
+color: #373026;
+
+
+
+/* 44546 */
+
+position: absolute;
+width: 259px;
+height: 41px;
+left: 1009px;
+top: 489px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+text-decoration-line: underline;
+
+color: #373026;
+
+
+
+/* Chillin */
+
+position: absolute;
+width: 259px;
+height: 41px;
+left: 1009px;
+top: 677px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.04em;
+text-decoration-line: underline;
+
+color: #373026;
+
+
+
+/* 7/12 */
+
+position: absolute;
+width: 70px;
+height: 41px;
+left: 1161px;
+top: 730px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #373026;
+
+
+
+/* 8/10 */
+
+position: absolute;
+width: 70px;
+height: 41px;
+left: 1169px;
+top: 542px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #373026;
+
+
+
+/* 12/12 */
+
+position: absolute;
+width: 87px;
+height: 41px;
+left: 1162px;
+top: 350px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #373026;
+
+
+
+/* Join */
+
+position: absolute;
+width: 142px;
+height: 59px;
+left: calc(50% - 142px/2 + 653px);
+top: calc(50% - 59px/2 - 132.5px);
+
+font-family: 'Impact';
+font-style: normal;
+font-weight: 400;
+font-size: 48px;
+line-height: 59px;
+/* identical to box height */
+text-align: right;
+
+color: #373026;
+
+
+
+/* Join */
+
+position: absolute;
+width: 142px;
+height: 59px;
+left: calc(50% - 142px/2 + 653px);
+top: calc(50% - 59px/2 + 58.5px);
+
+font-family: 'Impact';
+font-style: normal;
+font-weight: 400;
+font-size: 48px;
+line-height: 59px;
+/* identical to box height */
+text-align: right;
+
+color: #373026;
+
+
+
+/* Join */
+
+position: absolute;
+width: 142px;
+height: 59px;
+left: calc(50% - 142px/2 + 653px);
+top: calc(50% - 59px/2 + 247.5px);
+
+font-family: 'Impact';
+font-style: normal;
+font-weight: 400;
+font-size: 48px;
+line-height: 59px;
+/* identical to box height */
+text-align: right;
+
+color: #373026;
+
+
+
+/* Full. */
+
+position: absolute;
+width: 87px;
+height: 41px;
+left: 1262px;
+top: 350px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #807D73;
+
+
+
+/* icon/lock */
+
+position: absolute;
+width: 42px;
+height: 44px;
+left: 1268px;
+top: 540px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 45.83%;
+bottom: 8.33%;
+
+border: 2px solid #807D73;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 8.33%;
+bottom: 54.17%;
+
+border: 2px solid #807D73;
+
+
+/* Ellipse 38 */
+
+box-sizing: border-box;
+
+position: absolute;
+left: 42.86%;
+right: 42.86%;
+top: 54.55%;
+bottom: 31.82%;
+
+border: 4px solid #807D73;
+
+
+/* Page */
+
+position: absolute;
+width: 231.25px;
+height: 62px;
+left: 754px;
+top: 819px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 50.73%;
+right: 48.68%;
+top: 81.37%;
+bottom: 16.42%;
+
+border: 2px solid #C7C4B8;
+
+
+/* icon/chevron-left */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 754px;
+top: 819px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 25%;
+bottom: 25%;
+
+border: 2px solid #2C2A25;
+
+
+/* Page */
+
+position: absolute;
+width: 84px;
+height: 62px;
+left: 796px;
+top: 819px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #C7C4B8;
+
+
+
+/* 1/34 */
+
+position: absolute;
+width: 84px;
+height: 62px;
+left: 880px;
+top: 819px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 44px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #C7C4B8;
+
+
+
+/* Create room */
+
+position: absolute;
+width: 1004px;
+height: 669px;
+left: 777px;
+top: 569px;
+
+
+
+/* button create */
+
+position: absolute;
+width: 1004px;
+height: 669px;
+right: 139px;
+top: 569px;
+
+background: url(button new.png);
+filter: drop-shadow(0px 0px 48.6px #000000);
+
+
+/* Create room */
+
+position: absolute;
+width: 390px;
+height: 49px;
+left: calc(50% - 390px/2 + 326px);
+top: calc(50% - 49px/2 + 429.5px);
+
+font-family: 'Impact';
+font-style: normal;
+font-weight: 400;
+font-size: 40px;
+line-height: 49px;
+/* identical to box height */
+text-align: center;
+
+color: #C7C5B7;
+
+
+
+/* Search */
+
+position: absolute;
+width: 428px;
+height: 41px;
+left: 754px;
+top: 205px;
+
+
+
+/* Rectangle 1810 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 388.69px;
+height: 41px;
+left: 754px;
+top: 205px;
+
+border: 2px solid #C7C4B8;
+
+
+/* icon/filter */
+
+position: absolute;
+width: 29.7px;
+height: 28.45px;
+left: 1152.3px;
+top: 211.69px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 12.5%;
+bottom: 12.5%;
+
+border: 2px solid #C7C4B8;
+
+
+/* icon/search */
+
+position: absolute;
+width: 29.7px;
+height: 28.45px;
+left: 759.24px;
+top: 211.69px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 20.83%;
+top: 12.5%;
+bottom: 20.83%;
+
+border: 2px solid #C7C4B8;
+
+
+/* Vector */
+
+position: absolute;
+left: 69.38%;
+right: 12.5%;
+top: 69.38%;
+bottom: 12.5%;
+
+border: 2px solid #C7C4B8;
+
+
+/* search by name. */
+
+position: absolute;
+width: 185px;
+height: 29px;
+left: 802.94px;
+top: 209.84px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+letter-spacing: 0.04em;
+
+color: #35322D;
+
+
+
+/* scootch 1 */
+
+position: absolute;
+width: 180px;
+height: 95px;
+left: 627px;
+top: 683px;
+
+/* скотч */
+background: url(scootch.png);
+
+
+/* scootch 4 */
+
+position: absolute;
+width: 180px;
+height: 95px;
+left: 1684px;
+top: 680px;
+
+/* скотч */
+background: url(scootch.png);
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* scootch 5 */
+
+position: absolute;
+width: 180px;
+height: 95px;
+left: 1684px;
+top: 496px;
+
+/* скотч */
+background: url(scootch.png);
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* scootch 6 */
+
+position: absolute;
+width: 180px;
+height: 95px;
+left: 1689px;
+top: 305px;
+
+/* скотч */
+background: url(scootch.png);
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* scootch 2 */
+
+position: absolute;
+width: 180px;
+height: 95px;
+left: 627px;
+top: 494px;
+
+/* скотч */
+background: url(scootch.png);
+
+
+/* scootch 3 */
+
+position: absolute;
+width: 180px;
+height: 95px;
+left: 627px;
+top: 302px;
+
+/* скотч */
+background: url(scootch.png);
+
+
+/* Header */
+
+position: absolute;
+width: 1921px;
+height: 59px;
+left: 0px;
+top: -2px;
+
+
+
+/* Bar */
+
+position: absolute;
+width: 1920px;
+height: 57px;
+left: 0px;
+top: 0px;
+
+background: url(Группа 1.png);
+
+
+/* Группа 1 1 */
+
+position: absolute;
+width: 1920px;
+height: 56px;
+left: 1px;
+top: 0px;
+
+background: url(Группа 1.png);
+box-shadow: 0px 4px 32.6px 11px rgba(0, 0, 0, 0.25);
+
+
+/* Rectangle 1804 */
+
+position: absolute;
+width: 308px;
+height: 58px;
+left: 0px;
+top: -2px;
+
+background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+
+
+/* Border */
+
+position: absolute;
+width: 22px;
+height: 55px;
+left: 622px;
+top: 0px;
+
+background: url(vert bar.png);
+
+
+/* Border */
+
+position: absolute;
+width: 22px;
+height: 55px;
+left: 806px;
+top: 0px;
+
+background: url(vert bar.png);
+
+
+/* Border */
+
+position: absolute;
+width: 22px;
+height: 55px;
+left: 1074px;
+top: 0px;
+
+background: url(vert bar.png);
+
+
+/* Border */
+
+position: absolute;
+width: 22px;
+height: 55px;
+left: 1279px;
+top: 0px;
+
+background: url(vert bar.png);
+
+
+/* Component 1 */
+
+position: absolute;
+width: 39.04px;
+height: 39.05px;
+left: 29.98px;
+top: 6.2px;
+
+filter: drop-shadow(1px 1px 3.7px rgba(0, 0, 0, 0.85));
+
+
+/* Vector */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #A3A3A3;
+
+
+/* Vector */
+
+position: absolute;
+left: 40.43%;
+right: 40.43%;
+top: 39.62%;
+bottom: 41.24%;
+
+background: #A3A3A3;
+
+
+/* Vector */
+
+position: absolute;
+left: 46.49%;
+right: 46.48%;
+top: 52.11%;
+bottom: 2.27%;
+
+background: #A3A3A3;
+
+
+/* Vector */
+
+position: absolute;
+left: 6.97%;
+right: 86%;
+top: 23.2%;
+bottom: 31.18%;
+
+background: #A3A3A3;
+transform: matrix(0.5, -0.87, 0.87, 0.5, 0, 0);
+
+
+/* Vector */
+
+position: absolute;
+left: 50%;
+right: 42.96%;
+top: 23.2%;
+bottom: 31.18%;
+
+background: #A3A3A3;
+transform: matrix(-0.5, -0.87, 0.87, -0.5, 0, 0);
+
+
+/* Shelter */
+
+position: absolute;
+width: 108px;
+height: 40px;
+left: 79px;
+top: 10px;
+
+font-family: 'Kenia';
+font-style: normal;
+font-weight: 400;
+font-size: 40px;
+line-height: 40px;
+/* identical to box height */
+
+color: #A3A3A3;
+
+text-shadow: 1px 1px 5.8px #000000;
+
+
+/* Home */
+
+position: absolute;
+width: 62px;
+height: 29px;
+left: 694px;
+top: 11px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #A3A3A3;
+
+text-shadow: 1px 1px 3.7px rgba(0, 0, 0, 0.85);
+
+
+/* How to play? */
+
+position: absolute;
+width: 146px;
+height: 29px;
+left: 878px;
+top: 11px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #A3A3A3;
+
+text-shadow: 1px 1px 3.7px rgba(0, 0, 0, 0.85);
+
+
+/* Lobbies */
+
+position: absolute;
+width: 83px;
+height: 29px;
+left: 1146px;
+top: 11px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+/* identical to box height */
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #A3A3A3;
+
+text-shadow: 1px 1px 3.7px rgba(0, 0, 0, 0.85);
+
+
+/* Profile card */
+
+position: absolute;
+width: 201px;
+height: 307px;
+left: 1699px;
+top: -241px;
+
+
+
+/* Group 22 */
+
+position: absolute;
+width: 201px;
+height: 307px;
+left: 0px;
+top: 0px;
+
+
+
+/* Group 21 */
+
+position: absolute;
+width: 201px;
+height: 307px;
+left: 0px;
+top: 0px;
+
+filter: drop-shadow(4px 4px 11.3px rgba(0, 0, 0, 0.67));
+
+
+/* Бейдж1 1 */
+
+position: absolute;
+width: 201px;
+height: 279px;
+left: 0px;
+top: 28px;
+
+background: url(Бейдж1.png);
+
+
+/* Бейдж2 1 */
+
+position: absolute;
+width: 201px;
+height: 307px;
+left: 0px;
+top: 0px;
+
+background: url(Бейдж2.png);
+
+
+/* Ellipse 37 */
+
+position: absolute;
+width: 89px;
+height: 89px;
+left: 55px;
+top: 74px;
+
+background: url(photo_2024-10-30_00-19-54.jpg);
+border: 3px solid #3D2E14;
+
+
+/* Djullaii */
+
+position: absolute;
+width: 136px;
+height: 19px;
+left: 32px;
+top: 258px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #000000;
+
+
+
+/* Games played: 14 */
+
+position: absolute;
+width: 136px;
+height: 34px;
+left: 32px;
+top: 181px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #324657;
+
+
+
+/* Survival rate: 71,4% */
+
+position: absolute;
+width: 136px;
+height: 17px;
+left: 32px;
+top: 215px;
+
+font-family: 'Kelly Slab';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+/* identical to box height */
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #4D3F28;
+
+
+
+/* icon/cog */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 149px;
+top: 256px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 16.67%;
+right: 16.67%;
+top: 16.67%;
+bottom: 16.67%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 41.67%;
+bottom: 41.67%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 50%;
+right: 50%;
+top: 8.33%;
+bottom: 83.33%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 50%;
+right: 50%;
+top: 83.33%;
+bottom: 8.33%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 66.67%;
+right: 29.17%;
+top: 78.87%;
+bottom: 13.92%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 54.17%;
+top: 13.92%;
+bottom: 57.21%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 78.87%;
+right: 13.92%;
+top: 66.67%;
+bottom: 29.17%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 13.92%;
+right: 78.87%;
+top: 29.17%;
+bottom: 66.67%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 58.33%;
+right: 8.33%;
+top: 50%;
+bottom: 50%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 83.33%;
+top: 50%;
+bottom: 50%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 78.87%;
+right: 13.92%;
+top: 29.17%;
+bottom: 66.67%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 13.92%;
+right: 78.87%;
+top: 66.67%;
+bottom: 29.17%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 66.67%;
+right: 29.17%;
+top: 13.92%;
+bottom: 78.87%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 54.17%;
+top: 57.21%;
+bottom: 13.92%;
+
+border: 2px solid #3D2E14;
+
+
+/* icon/log-out */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 28px;
+top: 256px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 62.5%;
+top: 12.5%;
+bottom: 12.5%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 66.67%;
+right: 12.5%;
+top: 29.17%;
+bottom: 29.17%;
+
+border: 2px solid #3D2E14;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 12.5%;
+top: 50%;
+bottom: 50%;
+
+border: 2px solid #3D2E14;
